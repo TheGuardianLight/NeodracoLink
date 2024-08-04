@@ -35,26 +35,25 @@ $sites = $query->fetchAll(PDO::FETCH_ASSOC);
 <?php require 'php/menu.php' ?>
 
 <main class="container my-5">
+    <?php foreach ($sites as $site): ?>
     <div class="list-group">
-        <?php foreach ($sites as $site): ?>
             <div class="list-group-item align-items-start d-flex">
                 <a href="<?php echo $site['url']; ?>" class="d-flex align-items-center" style="flex-grow: 1;">
                     <img src="images/icon/<?php echo $site['icone']; ?>.svg" class="img-fluid me-3" alt="Icone de <?php echo $site['nom']; ?>" style="width: 100px; height: 100px;">
-                    <h5 class="mb-1" style="text-align: center;"><?php echo $site['nom']; ?></h5>
+                    <h5 class="mb-1 text-center fs-3 placeholder-glow" style="width: 100%"><?php echo $site['nom']; ?></h5>
                 </a>
                 <div class="dropdown">
                     <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-lg"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">Action 1</a></li>
-                        <li><a class="dropdown-item" href="#">Action 2</a></li>
-                        <li><a class="dropdown-item" href="#">Action 3</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Copier</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Partager</a></li>
                     </ul>
                 </div>
             </div>
-        <?php endforeach; ?>
     </div>
+    <?php endforeach; ?>
 </main>
 
 <?php require 'php/footer.php'?>

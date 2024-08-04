@@ -61,7 +61,10 @@ $versions = json_decode($json, true);
         </div>
         <div class="card-body">
             <p class="lead">
-                <strong>Icônes&nbsp;:</strong> <a href="https://www.streamlinehq.com/icons/logos-solid" rel="external">https://www.streamlinehq.com/icons/logos-solid</a>
+                <strong>Icônes&nbsp;:</strong>
+                <a class="icon-link" href="https://www.streamlinehq.com/icons/logos-solid">
+                    https://www.streamlinehq.com/icons/logos-solid
+                </a>
             </p>
         </div>
     </div>

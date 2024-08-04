@@ -16,6 +16,12 @@ body {
     background-color: var(--color-2);
 }
 
+html, body{
+    height: 100%;
+    margin: 0;
+}
+
+
 header {
     margin-bottom: 20px;
 }
@@ -24,30 +30,48 @@ main {
     padding: 2rem;
 }
 
-.navbar, .footer {
-    background-color: var(--color-4);
+.navbar, .bd-footer {
+    background-color: var(--color-3);
     color: var(--color-2);
 }
 
 .navbar .navbar-brand,
 .navbar .nav-link:hover,
-.navbar .dropdown-item:hover,
+.navbar,
 .dropdown:hover>.dropdown-menu {
-    color: var(--color-5);
-}
-
-.btn-primary,
-.footer .btn-floating {
-    background-color: var(--color-5);
-    border-color: var(--color-5);
     color: var(--color-2);
 }
 
-.btn-primary:hover,
-.footer .btn-floating:hover {
+.dropdown-item:hover {
+    color: #0a53be;
+}
+
+.btn-primary {
+    background-color: var(--color-2);
+    border-color: var(--color-2);
+    color: var(--color-4);
+}
+
+.btn-primary:hover{
     background-color: var(--color-6);
     border-color: var(--color-6);
+    color: var(--color-2);
+}
+
+.btn-floating{
+    background-color: var(--color-6);
+    border-color: var(--color-6);
+    color: var(--color-2);
+}
+
+.btn-floating:hover {
+    background-color: var(--color-2);
+    border-color: var(--color-2);
     color: var(--color-4);
+}
+
+.list-group{
+    padding-top: 10px;
 }
 
 .list-group-item {
@@ -75,10 +99,6 @@ main {
 
 .table_about {
     width: 20% !important;
-}
-
-.nav-link {
-    color: var(--color-6);
 }
 
 .dropdown:hover>.dropdown-menu {
