@@ -1,0 +1,6 @@
+{
+  "hub_site" : "1.2-release",
+  "bootstrap" : "5.2.3",
+  "jQuery" : "3.5.1",
+  "FontAwesome" : "5.8.2"
+}

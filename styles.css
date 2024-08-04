@@ -1,0 +1,43 @@
+/*
+ * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
+ */
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+main {
+    padding: 2rem;
+}
+
+.card {
+    min-height: 85%;
+}
+
+.cursor{
+    cursor: pointer;
+}
+
+.card-container {
+    display: flex;
+    align-items: stretch;
+}
+
+.no-line {
+    border: none;
+}
+
+.table_about {
+    width: 20% !important;
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
