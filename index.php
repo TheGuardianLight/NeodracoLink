@@ -13,9 +13,11 @@ require 'vendor/autoload.php';
 require 'php/api_config.php';
 
 $conn = getDbConnection($dbConfig);
+$query = $conn->prepare("SELECT reseaux.nom, reseaux.url, reseaux.icone FROM reseaux JOIN users_reseaux ON reseaux.id = users_reseaux.reseau_id WHERE users_reseaux.users_id = :username");
+$query->execute(['username' => $_SESSION['username']]);
+$sites = $query->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,41 +34,17 @@ $conn = getDbConnection($dbConfig);
 
 <?php require 'php/menu.php' ?>
 
-<header class="bg-dark text-white text-center py-3">
-    <h1>Bienvenue sur mon Hub</h1>
-</header>
 <main class="container my-5">
-    <div id="hub-container">
-        <?php foreach ($categories as $category): ?>
-            <hr/>
-            <h3><?php echo $category['cat_name']; ?>&nbsp;:</h3>
-            <br/>
-            <div class="row card-container">
-                <?php foreach ($category['sites'] as $site): ?>
-                    <?php
-                    if ($site['site_tag'] == 'En ligne') {
-                        $tagClass = 'bg-success';
-                    } elseif ($site['site_tag'] == 'Indisponible') {
-                        $tagClass = 'bg-danger';
-                    }
-                    ?>
-                    <div class="col-md-4">
-                        <a class="text-decoration-none text-dark" href="<?php echo $site['site_url']; ?>" hreflang="fr" target="_blank" rel="external">
-                            <div class="card mb-4 cursor">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $site['site_title']; ?>
-                                        <?php if(!empty($site['site_tag'])): ?>
-                                            | <span class="badge <?php if (isset($tagClass)) {
-                                                echo $tagClass;
-                                            } ?>"><?php echo $site['site_tag']; ?></span>
-                                        <?php endif; ?>
-                                    </h5>
-                                    <p class="card-text"><?php echo $site['site_desc']; ?></p>
-                                </div>
-                            </div>
-                        </a>
+    <div class="row card-container">
+        <?php foreach ($sites as $site): ?>
+            <div class="col-md-4">
+                <div class="card mb-4 cursor">
+                    <img src="<?php echo $site['icone']; ?>" class="card-img-top" alt="Icone de <?php echo $site['nom']; ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $site['nom']; ?></h5>
+                        <a href="<?php echo $site['url']; ?>" class="btn btn-primary">Visitez le site</a>
                     </div>
-                <?php endforeach; ?>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>
