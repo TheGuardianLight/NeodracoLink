@@ -35,15 +35,22 @@ $sites = $query->fetchAll(PDO::FETCH_ASSOC);
 <?php require 'php/menu.php' ?>
 
 <main class="container my-5">
-    <div class="row card-container">
+    <div class="list-group">
         <?php foreach ($sites as $site): ?>
-            <div class="col-md-4">
-                <div class="card mb-4 cursor">
-                    <img src="<?php echo $site['icone']; ?>" class="card-img-top" alt="Icone de <?php echo $site['nom']; ?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $site['nom']; ?></h5>
-                        <a href="<?php echo $site['url']; ?>" class="btn btn-primary">Visitez le site</a>
-                    </div>
+            <div class="list-group-item align-items-start d-flex">
+                <a href="<?php echo $site['url']; ?>" class="d-flex align-items-center" style="flex-grow: 1;">
+                    <img src="images/icon/<?php echo $site['icone']; ?>.svg" class="img-fluid me-3" alt="Icone de <?php echo $site['nom']; ?>" style="width: 100px; height: 100px;">
+                    <h5 class="mb-1" style="text-align: center;"><?php echo $site['nom']; ?></h5>
+                </a>
+                <div class="dropdown">
+                    <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-lg"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="#">Action 1</a></li>
+                        <li><a class="dropdown-item" href="#">Action 2</a></li>
+                        <li><a class="dropdown-item" href="#">Action 3</a></li>
+                    </ul>
                 </div>
             </div>
         <?php endforeach; ?>

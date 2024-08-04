@@ -10,12 +10,9 @@
                 </div>
                 <div class="col-sm-4 text-sm-right">
                     <section class="mb-2">
-                        <!-- Facebook -->
                         <a class="btn btn-outline-light btn-floating m-1 no-line" href="https://noaledet.fr" target="_blank">
                             <i class="fas fa-globe"></i>
                         </a>
-
-                        <!-- GitHub -->
                         <a class="btn btn-outline-light btn-floating m-1 no-line" href="https://github.com/TheGuardianLight" target="_blank">
                             <i class="fab fa-github"></i>
                         </a>
