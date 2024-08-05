@@ -3,4 +3,128 @@
  * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
  */
 
+global $dbConfig;
+session_start();
 
+require __DIR__ . '/vendor/autoload.php';
+require 'php/api_config.php';
+
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit;
+}
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Gestion des réseaux sociaux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="styles.css" rel="stylesheet"/>
+    <?php require 'php/favicon.php' ?>
+</head>
+
+<body>
+<?php require 'php/menu.php' ?>
+
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Nouveau réseau</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Nouveau réseau ajouté avec succès.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notificationRemoveModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Nouveau réseau</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Réseau supprimé avec succès.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-3"> <!-- ajout d'un espace à l'extérieur du conteneur (marge en haut et en bas) -->
+    <h1 class="mb-3">Gestion des réseaux sociaux</h1> <!-- ajout d'un espace en dessous du titre (marge en bas) -->
+    <div class="row">
+        <div class="col">
+            <h3 class="mb-3">Réseaux existants</h3>
+            <div id="networks_cards" class="row">
+                <?php require 'php/get_networks.php'; ?>
+            </div>
+        </div>
+
+        <div class="col mt-3">
+            <h3 class="mb-3">Ajouter un réseau</h3>
+            <form id="add_network_form">
+                <div class="mb-3">
+                    <input type="text" class="form-control mb-2" id="network_name" placeholder="Nom du réseau" required>
+                    <input type="url" class="form-control mb-2" id="network_url" placeholder="URL du réseau" required>
+                    <select class="form-select mb-2" id="network_icon" required>
+                        <option value="">Choisissez une icône...</option>
+                        <option value="discord">Discord</option>
+                        <option value="telegram">Telegram</option>
+                        <option value="email">Email</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="github">Github</option>
+                        <option value="mastodon">Mastodon</option>
+                        <option value="patreon">Patreon</option>
+                        <option value="tiktok">Tiktok</option>
+                        <option value="x_twitter">Twitter</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary m-1">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="error-modal" tabindex="-1" aria-labelledby="error-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="error-modal-label">Erreur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body" id="error-modal-body">
+                <!-- Le message d'erreur sera inséré ici -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<?php require 'php/footer.php' ?>
+
+<script type="text/javascript" src="js/modify.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</html>
