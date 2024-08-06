@@ -40,8 +40,8 @@ $sites = $query->fetchAll(PDO::FETCH_ASSOC);
         <div class="list-group">
             <div class="list-group-item align-items-start d-flex">
                 <a href="<?php echo $site['url']; ?>" class="d-flex align-items-center" style="flex-grow: 1;">
-                    <img src="images/icon/<?php echo $site['icone']; ?>.svg" class="img-fluid me-3" alt="Icone de <?php echo $site['nom']; ?>" style="width: 100px; height: 100px;">
-                    <h5 class="mb-1 text-center fs-3 placeholder-glow" style="width: 100%"><?php echo $site['nom']; ?></h5>
+                    <img src="images/icon/<?php echo $site['icone']; ?>.svg" class="img-fluid me-3" alt="Icone de <?php echo $site['nom']; ?>" style="width: 50px; height: 50px;">
+                    <h5 class="mb-1 text-center fs-4 placeholder-glow" style="width: 100%"><?php echo $site['nom']; ?></h5>
                 </a>
                 <div class="dropdown">
                     <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
