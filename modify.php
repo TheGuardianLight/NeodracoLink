@@ -93,6 +93,7 @@ if (!isset($_SESSION['username'])) {
                         <option value="patreon">Patreon</option>
                         <option value="tiktok">Tiktok</option>
                         <option value="x_twitter">Twitter</option>
+                        <option value="instagram">Instagram</option>
                     </select>
                     <button type="submit" class="btn btn-primary m-1">Ajouter</button>
                 </div>
