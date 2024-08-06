@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $updatedInfo = array_intersect_key(
         $_POST, array_flip(['email', 'first_name', 'last_name', 'password'])
     );
-    updateUserInfo($dbConfig, $_SESSION['username'], ...array_values($updatedInfo));
+    updateUserInfo($dbConfig, $_SESSION['username'], $updatedInfo['email'], $updatedInfo['first_name'], $updatedInfo['last_name'], $updatedInfo['password'], $_FILES['profile_pic']);
     $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
 }
 
@@ -51,7 +51,8 @@ $formFields = [
 <?php require 'php/menu.php' ?>
 
 <div class="container my-3">
-    <form method="post" class="row g-3">
+    <form method="post" enctype="multipart/form-data" class="row g-3">
+        <!-- Partie nom, prénom, nom utilisateur, email, mot de passe -->
         <?php foreach ($formFields as $fieldName => $fieldData) :
             $label = $fieldData[0];
             $type = $fieldData[1];
@@ -66,8 +67,33 @@ $formFields = [
                 </div>
             </div>
         <?php endforeach; ?>
+
+        <!-- Partie photo de profil -->
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <?php if (!empty($userInfo['profile_pic_name'])): ?>
+                            <img src="/images/profile_pic/<?= $userInfo['profile_pic_name'] ?>" class="img-fluid rounded-start" alt="Photo de profil">
+                        <?php else: ?>
+                            <img src="/images/default.png" class="img-fluid rounded-start" alt="Photo de profil par défaut">
+                        <?php endif; ?>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Photo de profil</h5>
+                            <label for="profile_pic" class="form-label">Choisir une nouvelle image</label>
+                            <p class="text-muted">Veuillez sélectionner une image au format carré.</p>
+                            <input type="file" class="form-control" id="profile_pic" name="profile_pic">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <!-- Bouton du formulaire -->
         <div class="col-12">
-            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+            <button type="submit" class="btn btn-tertiary">Mettre à jour</button>
         </div>
     </form>
 </div>
