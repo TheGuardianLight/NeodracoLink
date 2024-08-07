@@ -10,8 +10,8 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown align-self-center">
+            <ul class="navbar-nav">
+                <li class="nav-item align-self-center">
                     <a class="nav-link" href="index.php">Accueil</a>
                 </li>
                 <li class="nav-item dropdown align-self-center">
@@ -33,7 +33,7 @@
                             <img src="/images/profile_pic/<?= $userInfo['profile_pic_name'] ?>" class="rounded-circle" width="30" alt="Photo de profil" style="margin-left: 5px;">
                         <?php endif; ?>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
                         <li>
                             <a class="dropdown-item" href="account.php">Mon profil</a>
                         </li>
