@@ -19,11 +19,22 @@ function updateUserInfo($dbConfig, $username, $email, $first_name, $last_name, $
     $connection = getDbConnection($dbConfig);
     $password = password_hash($password, PASSWORD_BCRYPT);
 
-    $profile_pic_name = '';
+    $oldUserInfo = getUserInfo($dbConfig, $username);
+
     if($profile_pic['error'] == 0) {
+        // Vérifie si l'utilisateur a déjà une image de profil et supprime l'ancienne si existante
+        if(!empty($oldUserInfo['profile_pic_name'])){
+            $oldImagePath = __DIR__.'/../images/profile_pic/' . $oldUserInfo['profile_pic_name'];
+            if(file_exists($oldImagePath)){
+                unlink($oldImagePath);
+            }
+        }
+
         $extension = pathinfo($profile_pic['name'], PATHINFO_EXTENSION);
         $profile_pic_name = uniqid() . '.' . $extension;
         move_uploaded_file($profile_pic['tmp_name'], __DIR__.'/../images/profile_pic/' . $profile_pic_name);
+    } else {
+        $profile_pic_name = $oldUserInfo['profile_pic_name']; // garde l'ancienne image si aucune n'a été téléchargée
     }
 
     $updateQuery = "UPDATE users, user_info 
