@@ -11,13 +11,15 @@ window.onload = function() {
             }).then(response => response.text())
                 .then(response => {
                     if (response === 'Ok') {
-                        new bootstrap.Toast(document.getElementById('remove-success-toast')).show();
+                        let toast = new bootstrap.Toast(document.getElementById('remove-success-toast'));
+                        toast.show();
                         setTimeout(() => {
                             e.target.parentElement.remove();
                         }, 2000);
                     } else {
+                        let modal = new bootstrap.Modal(document.getElementById('error-modal'));
                         document.querySelector('#error-modal-body').textContent = "Erreur lors de la suppression : " + response;
-                        new bootstrap.Modal(document.getElementById('error-modal')).show();
+                        modal.show();
                     }
                 });
         }
@@ -37,7 +39,8 @@ window.onload = function() {
         }).then(response => response.text())
             .then(response => {
                 if (response === 'Ok') {
-                    new bootstrap.Toast(document.getElementById('add-success-toast')).show();
+                    let toast = new bootstrap.Toast(document.getElementById('add-success-toast'));
+                    toast.show();
                     setTimeout(() => {
                         fetch('php/get_networks.php')
                             .then(response => response.text())
@@ -46,8 +49,9 @@ window.onload = function() {
                             });
                     }, 2000);
                 } else {
+                    let modal = new bootstrap.Modal(document.getElementById('error-modal'));
                     document.querySelector('#error-modal-body').textContent = "Erreur lors de l'ajout : " + response;
-                    new bootstrap.Modal(document.getElementById('error-modal')).show();
+                    modal.show();
                 }
             });
     };
@@ -67,15 +71,18 @@ window.onload = function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        new bootstrap.Toast(document.getElementById('update-success-toast')).show();
+                        let toast = new bootstrap.Toast(document.getElementById('update-success-toast'));
+                        toast.show();
                     } else {
+                        let modal = new bootstrap.Modal(document.getElementById('error-modal'));
                         document.querySelector('#error-modal-body').textContent = "Erreur lors de la mise à jour : " + data.error;
-                        new bootstrap.Modal(document.getElementById('error-modal')).show();
+                        modal.show();
                     }
                 })
                 .catch(error => {
+                    let modal = new bootstrap.Modal(document.getElementById('error-modal'));
                     document.querySelector('#error-modal-body').textContent = "Erreur lors de la requête fetch: " + error;
-                    new bootstrap.Modal(document.getElementById('error-modal')).show();
+                    modal.show();
                 });
         });
     });
