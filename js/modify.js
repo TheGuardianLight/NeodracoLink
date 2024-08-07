@@ -1,12 +1,7 @@
-/*
- * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
- */
-
 window.onload = function() {
     document.querySelectorAll('.remove_network_button').forEach(button => {
         button.onclick = function(e) {
             let networkId = e.currentTarget.parentElement.parentElement.dataset.networkId;
-            console.log(networkId);
             fetch("php/remove_network.php", {
                 method: "POST",
                 headers: {
@@ -16,21 +11,13 @@ window.onload = function() {
             }).then(response => response.text())
                 .then(response => {
                     if (response === 'Ok') {
-                        var modalEl = document.querySelector('#notificationRemoveModal');
-                        var modal = new bootstrap.Modal(modalEl);
-
-                        modal.show();
-
+                        new bootstrap.Toast(document.getElementById('remove-success-toast')).show();
                         setTimeout(() => {
                             e.target.parentElement.remove();
                         }, 2000);
                     } else {
-                        var modalEl = document.querySelector('#error-modal');
-                        var modal = new bootstrap.Modal(modalEl);
-
                         document.querySelector('#error-modal-body').textContent = "Erreur lors de la suppression : " + response;
-
-                        modal.show();
+                        new bootstrap.Modal(document.getElementById('error-modal')).show();
                     }
                 });
         }
@@ -50,11 +37,7 @@ window.onload = function() {
         }).then(response => response.text())
             .then(response => {
                 if (response === 'Ok') {
-                    var modalEl = document.querySelector('#notificationModal');
-                    var modal = new bootstrap.Modal(modalEl);
-
-                    modal.show();
-
+                    new bootstrap.Toast(document.getElementById('add-success-toast')).show();
                     setTimeout(() => {
                         fetch('php/get_networks.php')
                             .then(response => response.text())
@@ -63,13 +46,37 @@ window.onload = function() {
                             });
                     }, 2000);
                 } else {
-                    var modalEl = document.querySelector('#error-modal');
-                    var modal = new bootstrap.Modal(modalEl);
-
                     document.querySelector('#error-modal-body').textContent = "Erreur lors de l'ajout : " + response;
-
-                    modal.show();
+                    new bootstrap.Modal(document.getElementById('error-modal')).show();
                 }
             });
     };
+
+    document.querySelectorAll('.update-order').forEach(function(button) {
+        button.addEventListener('click', function (event) {
+            let networkId = button.parentElement.parentElement.dataset.networkId;
+            let newOrder = button.previousElementSibling.value;
+
+            fetch('/php/update_network_order.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'networkId=' + encodeURIComponent(networkId) + '&newOrder=' + encodeURIComponent(newOrder),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        new bootstrap.Toast(document.getElementById('update-success-toast')).show();
+                    } else {
+                        document.querySelector('#error-modal-body').textContent = "Erreur lors de la mise à jour : " + data.error;
+                        new bootstrap.Modal(document.getElementById('error-modal')).show();
+                    }
+                })
+                .catch(error => {
+                    document.querySelector('#error-modal-body').textContent = "Erreur lors de la requête fetch: " + error;
+                    new bootstrap.Modal(document.getElementById('error-modal')).show();
+                });
+        });
+    });
 };

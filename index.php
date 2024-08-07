@@ -15,7 +15,7 @@ require 'php/api_config.php';
 require_once 'php/user_management.php';
 
 $conn = getDbConnection($dbConfig);
-$query = $conn->prepare("SELECT reseaux.nom, reseaux.url, reseaux.icone FROM reseaux JOIN users_reseaux ON reseaux.id = users_reseaux.reseau_id WHERE users_reseaux.users_id = :username");
+$query = $conn->prepare("SELECT reseaux.nom, reseaux.url, reseaux.icone FROM reseaux JOIN users_reseaux ON reseaux.id = users_reseaux.reseau_id WHERE users_reseaux.users_id = :username ORDER BY users_reseaux.reseau_order");
 $query->execute(['username' => $_SESSION['username']]);
 $sites = $query->fetchAll(PDO::FETCH_ASSOC);
 

@@ -22,7 +22,8 @@ try {
         CREATE TABLE users (
             username VARCHAR(100) PRIMARY KEY,
             email VARCHAR(100) NOT NULL UNIQUE,
-            password VARCHAR(255) NOT NULL
+            password VARCHAR(255) NOT NULL,
+            profile_pic_name VARCHAR(255) NULL
         ) ENGINE=InnoDB;
 
         CREATE TABLE reseaux (
@@ -36,6 +37,7 @@ try {
             id INT AUTO_INCREMENT PRIMARY KEY,
             users_id VARCHAR(100),
             reseau_id INT,
+            reseau_order INT,
             FOREIGN KEY (users_id) REFERENCES users(username),
             FOREIGN KEY (reseau_id) REFERENCES reseaux(id)
         ) ENGINE=InnoDB;

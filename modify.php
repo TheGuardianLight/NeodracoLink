@@ -33,15 +33,76 @@ if (!isset($_SESSION['username'])) {
 <body>
 <?php require 'php/menu.php' ?>
 
-<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+<div class="align-items-center">
+<!-- Toast de succès -->
+
+<div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="add-success-toast">
+    <div class="d-flex">
+        <div class="toast-body">
+            Opération réussie ! Le réseau a été ajouté.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fermer"></button>
+    </div>
+</div>
+
+<div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="update-success-toast">
+    <div class="d-flex">
+        <div class="toast-body">
+            Opération réussie ! Le réseau a été mis à jour.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fermer"></button>
+    </div>
+</div>
+
+<div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="remove-success-toast">
+    <div class="d-flex">
+        <div class="toast-body">
+            Opération réussie ! Le réseau a été supprimé.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fermer"></button>
+    </div>
+</div>
+
+<!-- Toast d'échec -->
+
+<div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="add-failure-toast">
+    <div class="d-flex">
+        <div class="toast-body">
+            Échec de l'opération. Impossible d'ajouter le réseau.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fermer"></button>
+    </div>
+</div>
+
+<div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="update-failure-toast">
+    <div class="d-flex">
+        <div class="toast-body">
+            Échec de l'opération. Impossible de mettre à jour le réseau.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fermer"></button>
+    </div>
+</div>
+
+<div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="remove-failure-toast">
+    <div class="d-flex">
+        <div class="toast-body">
+            Échec de l'opération. Impossible de supprimer le réseau.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fermer"></button>
+    </div>
+</div>
+
+<!-- Modal d'erreur -->
+
+<div class="modal" id="error-modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="notificationModalLabel">Nouveau réseau</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="error-modal-label">Erreur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
             </div>
-            <div class="modal-body">
-                Nouveau réseau ajouté avec succès.
+            <div class="modal-body" id="error-modal-body">
+                <!-- Le message d'erreur sera inséré ici -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -49,22 +110,6 @@ if (!isset($_SESSION['username'])) {
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="notificationRemoveModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="notificationModalLabel">Nouveau réseau</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Réseau supprimé avec succès.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div class="container my-3"> <!-- ajout d'un espace à l'extérieur du conteneur (marge en haut et en bas) -->
