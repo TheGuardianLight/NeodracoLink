@@ -10,7 +10,10 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown align-self-center">
+                    <a class="nav-link" href="index.php">Accueil</a>
+                </li>
                 <li class="nav-item dropdown align-self-center">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Gestion
@@ -20,7 +23,9 @@
                         <li><a class="dropdown-item" href="data.php">Export/Import data</a></li>
                     </ul>
                 </li>
-
+                <li class="nav-item align-self-center">
+                    <a class="nav-link" href="about.php">A propos</a>
+                </li>
                 <li class="nav-item dropdown align-self-center">
                     <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Compte
