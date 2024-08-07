@@ -72,6 +72,7 @@ $versions = json_decode($json, true);
 </div>
 
 <?php require 'php/footer.php'?>
+<?php require 'js/bootstrap_script.html' ?>
 
 </body>
 </html>

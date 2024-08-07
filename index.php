@@ -59,6 +59,7 @@ $sites = $query->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <?php require 'php/footer.php'?>
+<?php require 'js/bootstrap_script.html' ?>
 
 <script type="text/javascript">
 

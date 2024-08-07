@@ -91,7 +91,7 @@ if (isset($_GET['success']) && $_GET['success'] === '1') {
 $conn = null; // fermeture de la connexion à la base de données
 ?>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<?php require 'js/bootstrap_script.html' ?>
 
 <script>
     // tab switcher function
