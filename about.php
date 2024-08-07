@@ -14,6 +14,7 @@ if (!isset($_SESSION['username'])) {
 
 require 'vendor/autoload.php';
 require 'php/api_config.php';
+require_once 'php/user_management.php';
 
 $json = file_get_contents('php/versions.json');
 $versions = json_decode($json, true);

@@ -8,6 +8,7 @@ session_start();
 
 require __DIR__ . '/vendor/autoload.php';
 require 'php/api_config.php';
+require_once 'php/user_management.php';
 
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");

@@ -8,6 +8,7 @@ require 'vendor/autoload.php';
 require 'php/api_config.php';
 
 $message = '';
+$messageType = 'default';
 
 // Enregistrement de l'utilisateur
 if(isset($_POST['register'])) {
@@ -115,10 +116,12 @@ if(isset($_POST['register'])) {
                     </div>
                 </form>
                 <?php if(!empty($message)): ?>
-                    <?php $messageTypeMap = [
+                    <?php
+                    $messageTypeMap = [
                         'success' => 'alert-success',
                         'danger' => 'alert-danger',
                         'warning' => 'alert-warning',
+                        'default' => 'alert-info', // Attribuez une classe par défaut ici
                     ];
 
                     function getAlertDivClass($messageTypeMap, $messageType)
@@ -130,12 +133,14 @@ if(isset($_POST['register'])) {
                         return $messageTypeMap[$messageType];
                     }
 
-                    if (!empty($message)):
+                    if (!empty($message) && array_key_exists($messageType, $messageTypeMap)):
                         $class = getAlertDivClass($messageTypeMap, $messageType);
                         ?>
+
                         <div class="alert <?= $class ?>" role="alert">
                             <p class="text-center"><?= $message ?></p>
                         </div>
+
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
