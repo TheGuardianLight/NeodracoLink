@@ -133,3 +133,8 @@ main {
     position: relative; /* Pour garder le contenu au-dessus du fond flouté */
     z-index: 1;
 }
+
+.site-item{
+    text-decoration: none;
+    color: black;
+}

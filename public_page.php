@@ -66,7 +66,7 @@ $sites = $querySites->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($sites as $site): ?>
                 <div class="list-group">
                     <div class="list-group-item align-items-start d-flex">
-                        <a href="<?php echo $site['url']; ?>" class="d-flex align-items-center" style="flex-grow: 1;" target="_blank" rel="external">
+                        <a href="<?php echo $site['url']; ?>" class="d-flex align-items-center site-item" style="flex-grow: 1;" target="_blank" rel="external">
                             <img src="images/icon/<?php echo $site['icone']; ?>" class="img-fluid me-3" alt="Icone de <?php echo $site['nom']; ?>" style="width: 50px; height: 50px;">
                             <h5 class="mb-1 text-center fs-4 placeholder-glow" style="width: 100%"><?php echo $site['nom']; ?></h5>
                         </a>
