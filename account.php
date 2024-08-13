@@ -112,7 +112,7 @@ $formFields = [
                             <h5 class="card-title">Photo de profil</h5>
                             <label for="profile_pic" class="form-label">Choisir une nouvelle image</label>
                             <p class="text-muted">Veuillez sélectionner une image au format carré.</p>
-                            <input type="file" class="form-control" id="profile_pic" name="profile_pic">
+                            <input type="file" class="form-control" id="profile_pic" name="profile_pic" accept=".png, .jpg, .jpeg, .webp, .svg">
                         </div>
                     </div>
                 </div>
