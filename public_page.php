@@ -57,7 +57,7 @@ $sites = $querySites->fetchAll(PDO::FETCH_ASSOC);
             <?php else: ?>
                 <img src="/images/default.png" class="rounded-circle" alt="Photo de profil par défaut" style="width: 100px; height: 100px;">
             <?php endif; ?>
-            <h2 class="mt-3">@<?php echo htmlspecialchars($_GET['username']); ?></h2>
+            <h2 class="mt-3 text-black">@<?php echo htmlspecialchars($_GET['username']); ?></h2>
         </div>
 
         <?php if (empty($sites)): ?>
