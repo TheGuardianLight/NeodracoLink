@@ -56,17 +56,21 @@ $versions = json_decode($json, true);
             </table>
         </div>
         <div class="card-body">
-            <p class="lead">
+            <p class="lead card-text">
                 <strong>Icônes réseaux sociaux&nbsp;:</strong>
                 <a class="icon-link" href="https://www.streamlinehq.com/icons/logos-solid" target="_blank">
                     https://www.streamlinehq.com/icons/logos-solid
                 </a>
             </p>
-            <p class="lead">
+            <p class="lead card-text">
                 <strong>Icône de lien&nbsp;:</strong>
                 <a class="icon-link" href="https://www.flaticon.com/fr/icone-gratuite/lien_2985013?term=lien&related_id=2985013" title="lien icônes" target="_blank">
                     Lien icônes créées par alkhalifi design - Flaticon
                 </a>
+            </p>
+            <p class="lead card-text">
+                <strong>Logo bluesky&nbsp;:</strong>
+                Par Eric Bailey — Travail personnel avec&nbsp;: <a rel="nofollow" class="external free" href="https://drive.google.com/drive/folders/1RDpuQOQMfM9mXQ61wUYWNZUbgvDc8r-n">https://drive.google.com/drive/folders/1RDpuQOQMfM9mXQ61wUYWNZUbgvDc8r-n</a>, Domaine public, <a href="https://commons.wikimedia.org/w/index.php?curid=145139541">Lien</a>
             </p>
         </div>
     </div>
