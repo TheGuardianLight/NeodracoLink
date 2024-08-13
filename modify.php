@@ -141,6 +141,7 @@ if (!isset($_SESSION['username'])) {
                         <option value="x_twitter.svg">Twitter</option>
                         <option value="instagram.svg">Instagram</option>
                         <option value="bluesky.svg">Bluesky</option>
+                        <option value="furaffinity.png">Fur Affinity</option>
                         <option value="lien.png">Lien externe</option>
                     </select>
                     <button type="submit" class="btn btn-primary m-1">Ajouter</button>

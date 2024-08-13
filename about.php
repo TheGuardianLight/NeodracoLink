@@ -70,7 +70,7 @@ $versions = json_decode($json, true);
             </p>
             <p class="lead card-text">
                 <strong>Logo bluesky&nbsp;:</strong>
-                Par Eric Bailey — Travail personnel avec&nbsp;: <a rel="nofollow" class="external free" href="https://drive.google.com/drive/folders/1RDpuQOQMfM9mXQ61wUYWNZUbgvDc8r-n">https://drive.google.com/drive/folders/1RDpuQOQMfM9mXQ61wUYWNZUbgvDc8r-n</a>, Domaine public, <a href="https://commons.wikimedia.org/w/index.php?curid=145139541">Lien</a>
+                Par Eric Bailey&nbsp;: <a rel="nofollow" class="external free" href="https://drive.google.com/drive/folders/1RDpuQOQMfM9mXQ61wUYWNZUbgvDc8r-n">https://drive.google.com/drive/folders/1RDpuQOQMfM9mXQ61wUYWNZUbgvDc8r-n</a>, Domaine public, <a href="https://commons.wikimedia.org/w/index.php?curid=145139541">Lien</a>
             </p>
         </div>
     </div>
