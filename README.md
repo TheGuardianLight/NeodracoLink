@@ -29,6 +29,7 @@ J'ai prévu d'y ajouter d'autres fonctions :
 
 - [ ] Ajouter une documentation intégré au site.
 - [ ] L'ajout de catégories.
+- [ ] L'affichage d'un avertissement pour les liens pouvant contenir du contenu +18.
 
 ## Des problèmes ? Des idées d'améliorations ?
 
