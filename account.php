@@ -93,6 +93,23 @@ $formFields = [
         </div>
     </form>
 
+    <!-- Formulaire pour changer le mot de passe -->
+    <form method="post" class="row g-3 mt-4">
+        <input type="hidden" name="update_password" value="1">
+        <h3>Changer le mot de passe</h3>
+        <div class="col-md-6">
+            <label for="password" class="form-label">Nouveau mot de passe</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <div class="col-md-6">
+            <label for="confirm_password" class="form-label">Confirmer le nouveau mot de passe</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Mettre à jour le mot de passe</button>
+        </div>
+    </form>
+
     <!-- Formulaire pour changer l'image de profil -->
     <form method="post" enctype="multipart/form-data" class="row g-3 mt-4">
         <input type="hidden" name="update_profile_pic" value="1">
@@ -120,23 +137,6 @@ $formFields = [
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Mettre à jour l'image de profil</button>
-        </div>
-    </form>
-
-    <!-- Formulaire pour changer le mot de passe -->
-    <form method="post" class="row g-3 mt-4">
-        <input type="hidden" name="update_password" value="1">
-        <h3>Changer le mot de passe</h3>
-        <div class="col-md-6">
-            <label for="password" class="form-label">Nouveau mot de passe</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-        <div class="col-md-6">
-            <label for="confirm_password" class="form-label">Confirmer le nouveau mot de passe</label>
-            <input type="password" class="form-control" id="confirm_password" name="confirm_password">
-        </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Mettre à jour le mot de passe</button>
         </div>
     </form>
 </div>
