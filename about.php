@@ -57,9 +57,15 @@ $versions = json_decode($json, true);
         </div>
         <div class="card-body">
             <p class="lead">
-                <strong>Icônes&nbsp;:</strong>
-                <a class="icon-link" href="https://www.streamlinehq.com/icons/logos-solid">
+                <strong>Icônes réseaux sociaux&nbsp;:</strong>
+                <a class="icon-link" href="https://www.streamlinehq.com/icons/logos-solid" target="_blank">
                     https://www.streamlinehq.com/icons/logos-solid
+                </a>
+            </p>
+            <p class="lead">
+                <strong>Icône de lien&nbsp;:</strong>
+                <a class="icon-link" href="https://www.flaticon.com/fr/icone-gratuite/lien_2985013?term=lien&related_id=2985013" title="lien icônes" target="_blank">
+                    Lien icônes créées par alkhalifi design - Flaticon
                 </a>
             </p>
         </div>

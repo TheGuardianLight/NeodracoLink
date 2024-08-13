@@ -130,16 +130,17 @@ if (!isset($_SESSION['username'])) {
                     <input type="url" class="form-control mb-2" id="network_url" placeholder="URL du réseau" required>
                     <select class="form-select mb-2" id="network_icon" required>
                         <option value="">Choisissez une icône...</option>
-                        <option value="discord">Discord</option>
-                        <option value="telegram">Telegram</option>
-                        <option value="email">Email</option>
-                        <option value="facebook">Facebook</option>
-                        <option value="github">Github</option>
-                        <option value="mastodon">Mastodon</option>
-                        <option value="patreon">Patreon</option>
-                        <option value="tiktok">Tiktok</option>
-                        <option value="x_twitter">Twitter</option>
-                        <option value="instagram">Instagram</option>
+                        <option value="discord.svg">Discord</option>
+                        <option value="telegram.svg">Telegram</option>
+                        <option value="email.svg">Email</option>
+                        <option value="facebook.svg">Facebook</option>
+                        <option value="github.svg">Github</option>
+                        <option value="mastodon.svg">Mastodon</option>
+                        <option value="patreon.svg">Patreon</option>
+                        <option value="tiktok.svg">Tiktok</option>
+                        <option value="x_twitter.svg">Twitter</option>
+                        <option value="instagram.svg">Instagram</option>
+                        <option value="lien.png">Lien externe</option>
                     </select>
                     <button type="submit" class="btn btn-primary m-1">Ajouter</button>
                 </div>
