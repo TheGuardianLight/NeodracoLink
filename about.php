@@ -7,11 +7,6 @@
 global $dbConfig;
 session_start();
 
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit;
-}
-
 require 'vendor/autoload.php';
 require 'php/api_config.php';
 require_once 'php/user_management.php';
