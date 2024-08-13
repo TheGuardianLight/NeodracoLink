@@ -11,6 +11,9 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                <?php if (!isset($_SESSION['username'])) {
+
+                } else { ?>
                 <li class="nav-item align-self-center">
                     <a class="nav-link" href="index.php">Accueil</a>
                 </li>
@@ -22,9 +25,6 @@
                         <li><a class="dropdown-item" href="modify.php">Sites & Réseaux</a></li>
                         <li><a class="dropdown-item" href="data.php">Export/Import data</a></li>
                     </ul>
-                </li>
-                <li class="nav-item align-self-center">
-                    <a class="nav-link" href="about.php">A propos</a>
                 </li>
                 <li class="nav-item dropdown align-self-center">
                     <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,6 +41,13 @@
                             <a class="dropdown-item" href="php/logout.php">Déconnexion</a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item align-self-center">
+                    <a class="nav-link" href="https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>">Voir la version publique</a>
+                </li>
+                <?php } ?>
+                <li class="nav-item align-self-center">
+                    <a class="nav-link" href="about.php">A propos</a>
                 </li>
             </ul>
         </div>

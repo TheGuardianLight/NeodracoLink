@@ -116,3 +116,20 @@ main {
 .dropdown:hover>.dropdown-menu {
     display: block;
 }
+
+.background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(60px);
+    z-index: -1; /* Pour que le fond soit derrière tout le reste */
+}
+
+.content {
+    position: relative; /* Pour garder le contenu au-dessus du fond flouté */
+    z-index: 1;
+}

@@ -91,6 +91,22 @@ $formFields = [
             </div>
         </div>
 
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Lien d'accès publique</h5>
+                            <p class="card-text">
+                                Voici le lien publique&nbsp;:<br/>
+                                <a href="https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>" hreflang="fr" target="_blank">https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
        <!-- Bouton du formulaire -->
         <div class="col-12">
             <button type="submit" class="btn btn-tertiary">Mettre à jour</button>
