@@ -43,7 +43,7 @@
                     </ul>
                 </li>
                 <li class="nav-item align-self-center">
-                    <a class="nav-link" href="https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>">Voir la version publique</a>
+                    <a class="nav-link" href="https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>" target="_blank">Voir la version publique</a>
                 </li>
                 <?php } ?>
                 <li class="nav-item align-self-center">
