@@ -9,6 +9,7 @@
     --color-4: #000000; /* Black */
     --color-5: #72D2FE; /* Azur */
     --color-6: #7799BB; /* Air Superiority Blue */
+    --color-7: #5494d5;
 }
 
 body {
@@ -137,4 +138,10 @@ main {
 .site-item{
     text-decoration: none;
     color: black;
+    transition: color 0.2s ease-in-out;
+}
+
+.site-item:hover{
+    text-decoration: none;
+    color: var(--color-7);
 }
