@@ -1,6 +1,7 @@
 {
-  "NeodracoLink" : "v2.2.0",
-  "bootstrap" : "5.2.3",
-  "jQuery" : "3.5.1",
-  "FontAwesome" : "5.8.2"
+  "NeodracoLink" : "2.2.0",
+  "bootstrap" : "5.3.3",
+  "jQuery" : "3.6.0",
+  "FontAwesome" : "5.8.2",
+  "Popper" : "2.11.8"
 }
