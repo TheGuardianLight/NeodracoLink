@@ -1,13 +1,14 @@
-<?php global $username;
+<?php
 /**
  * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
  */
 
-global $dbConfig;
+global $dbConfig, $username;
 require 'vendor/autoload.php';
 require 'php/api_config.php';
 require 'php/public_page_function.php';
 
+$username = $username ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -15,20 +16,19 @@ require 'php/public_page_function.php';
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Neodraco's Link | <?php echo htmlspecialchars($username); ?></title>
+    <title>Neodraco's Link | <?= htmlspecialchars($username) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link href="styles.css" rel="stylesheet"/>
-    <?php require 'php/favicon.php' ?>
+    <link rel="stylesheet" href="styles.css">
+    <?php require 'php/favicon.php'; ?>
 </head>
 <body>
 
 <!-- Section de fond flouté -->
-<?php if (!empty($userInfo['profile_pic_name'])): ?>
-    <div class="background-blur" style="background-image: url('/images/profile_pic/<?php echo $userInfo['profile_pic_name']; ?>');"></div>
-<?php else: ?>
-    <div class="background-blur" style="background-image: url('/images/default.png');"></div>
-<?php endif; ?>
+<?php
+$backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/{$userInfo['profile_pic_name']}" : '/images/default.png';
+?>
+<div class="background-blur" style="background-image: url('<?= $backgroundImage ?>');"></div>
 
 <?php require 'php/menu.php'; ?>
 
@@ -36,12 +36,8 @@ require 'php/public_page_function.php';
     <main class="container my-5 text-white">
         <!-- Section utilisateur -->
         <div class="text-center mb-4">
-            <?php if (!empty($userInfo['profile_pic_name'])): ?>
-                <img src="/images/profile_pic/<?php echo $userInfo['profile_pic_name']; ?>" class="rounded-circle" alt="Photo de profil" style="width: 100px; height: 100px;">
-            <?php else: ?>
-                <img src="/images/default.png" class="rounded-circle" alt="Photo de profil par défaut" style="width: 100px; height: 100px;">
-            <?php endif; ?>
-            <h2 class="mt-3 text-black">@<?php echo htmlspecialchars($_GET['username']); ?></h2>
+            <img src="<?= $backgroundImage ?>" class="rounded-circle" alt="Photo de profil" style="width: 100px; height: 100px;">
+            <h2 class="mt-3 text-black">@<?= htmlspecialchars($_GET['username']) ?></h2>
         </div>
 
         <?php if (empty($sites)): ?>
@@ -50,22 +46,22 @@ require 'php/public_page_function.php';
             <?php foreach ($sites as $site): ?>
                 <div class="list-group">
                     <div class="list-group-item align-items-start d-flex">
-                        <a href="<?php echo htmlspecialchars($site['url']); ?>"
+                        <a href="<?= htmlspecialchars($site['url']) ?>"
                            class="d-flex align-items-center site-item"
                            style="flex-grow: 1;"
                            target="_blank"
                            rel="external"
-                           onclick="warnBeforeNsfw(event, '<?php echo htmlspecialchars($site['url']); ?>', <?php echo (int)$site['nsfw']; ?>, <?php echo (int)$site['active']; ?>)">
-                            <img src="images/icon/<?php echo htmlspecialchars($site['icone']); ?>" class="img-fluid me-3" alt="Icone de <?php echo htmlspecialchars($site['nom']); ?>" style="width: 50px; height: 50px;">
-                            <h5 class="mb-1 text-center fs-4 placeholder-glow" style="width: 100%"><?php echo htmlspecialchars($site['nom']); ?></h5>
+                           onclick="warnBeforeNsfw(event, '<?= htmlspecialchars($site['url']) ?>', <?= (int)$site['nsfw'] ?>, <?= (int)$site['active'] ?>)">
+                            <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
+                            <h5 class="mb-1 text-center fs-4 placeholder-glow" style="width: 100%"><?= htmlspecialchars($site['nom']) ?></h5>
                         </a>
                         <div class="dropdown">
                             <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-lg"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#" data-clipboard-text="<?php echo htmlspecialchars($site['url']); ?>" onclick="copyToClipboard(event)">Copier</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="share(event, '<?php echo htmlspecialchars($site['url']); ?>')">Partager</a></li>
+                                <li><a class="dropdown-item" href="#" data-clipboard-text="<?= htmlspecialchars($site['url']) ?>" onclick="copyToClipboard(event)">Copier</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="share(event, '<?= htmlspecialchars($site['url']) ?>')">Partager</a></li>
                             </ul>
                         </div>
                     </div>
@@ -95,8 +91,8 @@ require 'php/public_page_function.php';
     </div>
 </div>
 
-<?php require 'php/footer.php'?>
-<?php require 'js/bootstrap_script.html' ?>
+<?php require 'php/footer.php'; ?>
+<?php require 'js/bootstrap_script.html'; ?>
 <script type="text/javascript" src="js/public_page.js"></script>
 
 </body>
