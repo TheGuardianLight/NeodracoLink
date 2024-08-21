@@ -1,8 +1,8 @@
 {
   "NeodracoLink" : "2.3.0",
   "Bootstrap" : "5.3.3",
+  "Bootstrap Icons" : "1.11.3",
   "jQuery" : "3.6.0",
   "FontAwesome" : "5.8.2",
-  "Popper" : "2.11.8",
-  "Bootstrap Icons" : "1.11.3"
+  "Popper" : "2.11.8"
 }
