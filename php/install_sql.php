@@ -30,7 +30,9 @@ try {
             id INT AUTO_INCREMENT PRIMARY KEY,
             nom VARCHAR(100) NOT NULL,
             url VARCHAR(255) NOT NULL,
-            icone VARCHAR(255)
+            icone VARCHAR(255),
+            nsfw tinyint(1) NULL DEFAULT 0,
+            active tinyint(1) NULL DEFAULT 1
         ) ENGINE=InnoDB;
 
         CREATE TABLE users_reseaux (
