@@ -18,26 +18,46 @@ $query = $db->prepare("SELECT reseaux.*, users_reseaux.reseau_order FROM reseaux
 $query->execute(['username' => $_SESSION['username']]);
 
 $networks = $query->fetchAll();
+
+// Mapper les noms de réseaux à leurs icônes Bootstrap
+$iconMap = [
+    'discord' => 'bi-discord',
+    'telegram' => 'bi-telegram',
+    'email' => 'bi-envelope',
+    'facebook' => 'bi-facebook',
+    'github' => 'bi-github',
+    'mastodon' => 'bi-mastodon',
+    'patreon' => 'bi-patreon', // Note: Bootstrap Icons may not have specific icons for all networks; fallback or custom handling may be required.
+    'tiktok' => 'bi-tiktok',
+    'twitter' => 'bi-twitter',
+    'instagram' => 'bi-instagram',
+    'bluesky' => 'bi-cloud',
+    'furaffinity' => 'bi-heart',
+    'lien' => 'bi-link',
+];
 ?>
 
-<div id="networks_cards" class="row g-4">
+<div id="networks_cards" class="row g-3">
     <?php foreach ($networks as $network): ?>
         <div class="col-md-6">
             <div class="card h-100 shadow-sm" data-network-id="<?= htmlspecialchars($network['id']); ?>">
-                <div class="card-body">
-                    <!-- Titre de la carte -->
-                    <h5 class="card-title"><?= htmlspecialchars($network['nom']); ?></h5>
-
-                    <!-- Ordre du réseau -->
-                    <div class="mb-3">
-                        <label for="order-<?= htmlspecialchars($network['id']); ?>" class="form-label">Ordre:</label>
-                        <input type="number" class="form-control" id="order-<?= htmlspecialchars($network['id']); ?>" value="<?= htmlspecialchars($network['reseau_order']); ?>" min="1">
+                <div class="card-body d-flex flex-column justify-content-between p-3">
+                    <!-- Titre de la carte avec icône -->
+                    <div class="d-flex align-items-center mb-2">
+                        <?php
+                        $networkName = strtolower(pathinfo($network['icone'], PATHINFO_FILENAME));
+                        $iconClass = $iconMap[$networkName] ?? 'bi-question-circle'; // Fallback icon
+                        ?>
+                        <i class="<?= $iconClass ?> me-2" style="font-size: 1.25rem;"></i>
+                        <h5 class="card-title mb-0"><?= htmlspecialchars($network['nom']); ?></h5>
                     </div>
-
+                    <!-- Empty spacer to push the button to the bottom -->
+                    <div class="flex-grow-1"></div>
                     <!-- Boutons d'action -->
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-primary update-order">Mettre à jour l'ordre</button>
-                        <button class="btn btn-danger remove_network_button">Supprimer</button>
+                    <div class="d-flex justify-content-end mt-2">
+                        <button class="btn btn-danger remove_network_button btn-sm">
+                            <i class="bi bi-trash"></i> Supprimer
+                        </button>
                     </div>
                 </div>
             </div>
@@ -46,11 +66,11 @@ $networks = $query->fetchAll();
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const cards = document.querySelectorAll('.card.h-100');
 
         cards.forEach(card => {
-            card.addEventListener('click', function(event) {
+            card.addEventListener('click', function (event) {
                 // Vérifier si le clic provient du bouton "Supprimer"
                 const removeButton = card.querySelector('.remove_network_button');
 
