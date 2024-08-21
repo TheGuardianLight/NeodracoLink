@@ -1,8 +1,8 @@
-window.onload = function() {
+window.onload = function () {
 
     // Supprimer un lien
     document.querySelectorAll('.remove_network_button').forEach(button => {
-        button.onclick = function(e) {
+        button.onclick = function (e) {
             let networkId = e.currentTarget.parentElement.parentElement.dataset.networkId;
             fetch("php/remove_network.php", {
                 method: "POST",
@@ -28,7 +28,7 @@ window.onload = function() {
     });
 
     // Ajouter un lien
-    document.querySelector('#add_network_form').onsubmit = function(e) {
+    document.querySelector('#add_network_form').onsubmit = function (e) {
         e.preventDefault();
         let networkName = document.querySelector('#network_name').value;
         let networkUrl = document.querySelector('#network_url').value;
@@ -61,40 +61,4 @@ window.onload = function() {
                 }
             });
     };
-
-    // Modifier l'ordre des liens
-    document.querySelectorAll('.update-order').forEach(function(button) {
-        button.addEventListener('click', function (event) {
-            let networkId = button.parentElement.parentElement.dataset.networkId;
-            let newOrder = button.previousElementSibling.value;
-            console.log("Network ID: " + networkId); // Checking the networkId
-            console.log("New Order: " + newOrder); // Checking the new order value
-
-            fetch('/php/update_network_order.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'networkId=' + encodeURIComponent(networkId) + '&newOrder=' + encodeURIComponent(newOrder),
-            })
-                .then(response => {
-                    console.log(response); // Logging the fetch response
-                    return response.json()
-                })
-                .then(data => {
-                    console.log(data); // Logging the parsed JSON data
-                    if (data.status === 'success') {
-                        let toast = new bootstrap.Toast(document.getElementById('update-success-toast'));
-                        toast.show();
-                    } else {
-                        let modal = new bootstrap.Modal(document.getElementById('error-modal'));
-                        document.querySelector('#error-modal-body').textContent = "Erreur lors de la mise à jour : " + data.error;
-                        modal.show();
-                    }
-                })
-                .catch(error => {
-                    console.log('Error:', error); // Logging any errors that occur
-                });
-        });
-    });
 };

@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $sql->execute();
 
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         echo "Une erreur s'est produite lors de l'ajout : " . $e->getMessage();
         die();
     }
