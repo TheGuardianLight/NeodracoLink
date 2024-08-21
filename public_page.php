@@ -1,29 +1,13 @@
-<?php
-/*
+<?php global $username;
+/**
  * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
  */
 
 global $dbConfig;
 require 'vendor/autoload.php';
 require 'php/api_config.php';
+require 'php/public_page_function.php';
 
-$username = $_GET['username'] ?? '';
-
-if (empty($username)) {
-    echo "Username is required";
-    exit;
-}
-
-$conn = getDbConnection($dbConfig);
-
-// Requête pour obtenir les informations de l'utilisateur
-$queryUser = $conn->prepare("SELECT profile_pic_name FROM users WHERE username = :username");
-$queryUser->execute(['username' => $username]);
-$userInfo = $queryUser->fetch(PDO::FETCH_ASSOC);
-
-$querySites = $conn->prepare("SELECT reseaux.nom, reseaux.url, reseaux.icone FROM reseaux JOIN users_reseaux ON reseaux.id = users_reseaux.reseau_id WHERE users_reseaux.users_id = :username ORDER BY users_reseaux.reseau_order");
-$querySites->execute(['username' => $username]);
-$sites = $querySites->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -46,9 +30,9 @@ $sites = $querySites->fetchAll(PDO::FETCH_ASSOC);
     <div class="background-blur" style="background-image: url('/images/default.png');"></div>
 <?php endif; ?>
 
-<div class="content">
-    <?php require 'php/menu.php' ?>
+<?php require 'php/menu.php'; ?>
 
+<div class="content">
     <main class="container my-5 text-white">
         <!-- Section utilisateur -->
         <div class="text-center mb-4">
@@ -66,17 +50,22 @@ $sites = $querySites->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($sites as $site): ?>
                 <div class="list-group">
                     <div class="list-group-item align-items-start d-flex">
-                        <a href="<?php echo $site['url']; ?>" class="d-flex align-items-center site-item" style="flex-grow: 1;" target="_blank" rel="external">
-                            <img src="images/icon/<?php echo $site['icone']; ?>" class="img-fluid me-3" alt="Icone de <?php echo $site['nom']; ?>" style="width: 50px; height: 50px;">
-                            <h5 class="mb-1 text-center fs-4 placeholder-glow" style="width: 100%"><?php echo $site['nom']; ?></h5>
+                        <a href="<?php echo htmlspecialchars($site['url']); ?>"
+                           class="d-flex align-items-center site-item"
+                           style="flex-grow: 1;"
+                           target="_blank"
+                           rel="external"
+                           onclick="warnBeforeNsfw(event, '<?php echo htmlspecialchars($site['url']); ?>', <?php echo (int)$site['nsfw']; ?>, <?php echo (int)$site['active']; ?>)">
+                            <img src="images/icon/<?php echo htmlspecialchars($site['icone']); ?>" class="img-fluid me-3" alt="Icone de <?php echo htmlspecialchars($site['nom']); ?>" style="width: 50px; height: 50px;">
+                            <h5 class="mb-1 text-center fs-4 placeholder-glow" style="width: 100%"><?php echo htmlspecialchars($site['nom']); ?></h5>
                         </a>
                         <div class="dropdown">
                             <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-lg"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#" data-clipboard-text="<?php echo $site['url']; ?>" onclick="copyToClipboard(event)">Copier</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="share(event, '<?php echo $site['url']; ?>')">Partager</a></li>
+                                <li><a class="dropdown-item" href="#" data-clipboard-text="<?php echo htmlspecialchars($site['url']); ?>" onclick="copyToClipboard(event)">Copier</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="share(event, '<?php echo htmlspecialchars($site['url']); ?>')">Partager</a></li>
                             </ul>
                         </div>
                     </div>
@@ -84,45 +73,31 @@ $sites = $querySites->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         <?php endif; ?>
     </main>
-
-    <?php require 'php/footer.php'?>
 </div>
 
+<!-- Modal de mise en garde pour liens désactivés ou NSFW -->
+<div class="modal fade" id="nsfwModal" tabindex="-1" aria-labelledby="nsfwModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="nsfwModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <i class="fas fa-exclamation-triangle fa-2x mb-3 text-danger"></i>
+                <p id="modalMessage"></p>
+            </div>
+            <div class="modal-footer justify-content-center" id="modalFooter">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" id="continueBtn">Continuer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php require 'php/footer.php'?>
 <?php require 'js/bootstrap_script.html' ?>
-
-<script type="text/javascript">
-    function copyToClipboard(e) {
-        var text = e.target.getAttribute('data-clipboard-text');
-        var textarea = document.createElement('textarea');
-        textarea.textContent = text;
-        textarea.style.position = 'fixed';
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-            return document.execCommand('copy');
-        } catch (ex) {
-            console.warn('Copy to clipboard failed.', ex);
-            return false;
-        } finally {
-            document.body.removeChild(textarea);
-        }
-    }
-
-    function share(e, url) {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Check out this website',
-                text: 'Here is a website I think you will like',
-                url: url,
-            })
-                .then(() => console.log('Successful share'))
-                .catch((error) => console.log('Error sharing', error));
-        } else {
-            console.log("Your browser does not support the Web Share API");
-        }
-        e.preventDefault();
-    }
-</script>
+<script type="text/javascript" src="js/public_page.js"></script>
 
 </body>
 </html>

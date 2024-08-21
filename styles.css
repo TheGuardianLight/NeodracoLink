@@ -145,3 +145,22 @@ main {
     text-decoration: none;
     color: var(--color-7);
 }
+
+.modal-header {
+    background-color: #ffc107;
+}
+.modal-body {
+    font-size: 1.2em;
+}
+.modal-footer .btn {
+    min-width: 100px;
+}
+
+.disabled-link {
+    pointer-events: none;
+    cursor: not-allowed;
+    color: gray;
+}
+.disabled {
+    opacity: 0.6;
+}
