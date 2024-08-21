@@ -20,21 +20,45 @@ $query->execute(['username' => $_SESSION['username']]);
 $networks = $query->fetchAll();
 ?>
 
-<div id="networks_cards" class="row">
+<div id="networks_cards" class="row g-4">
     <?php foreach ($networks as $network): ?>
-        <!-- Votre code pour chaque carte de réseau -->
-        <div class="col-md-6 mb-3">
-            <div class="card h-100" data-network-id="<?= htmlspecialchars($network['id']); ?>">
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm" data-network-id="<?= htmlspecialchars($network['id']); ?>">
                 <div class="card-body">
+                    <!-- Titre de la carte -->
                     <h5 class="card-title"><?= htmlspecialchars($network['nom']); ?></h5>
-                    <!-- Ajouter un champ d'input pour le reseau_order avec la valeur actuelle -->
-                    <label for="order-<?= htmlspecialchars($network['id']); ?>">Ordre:</label>
-                    <input type="number" id="order-<?= htmlspecialchars($network['id']); ?>" value="<?= htmlspecialchars($network['reseau_order']); ?>" min="1">
-                    <!-- Ajouter un bouton pour soumettre le reseau_order mis à jour -->
-                    <button class="btn btn-primary update-order">Mettre à jour l'ordre</button>
-                    <button class="btn btn-danger remove_network_button">Supprimer</button>
+
+                    <!-- Ordre du réseau -->
+                    <div class="mb-3">
+                        <label for="order-<?= htmlspecialchars($network['id']); ?>" class="form-label">Ordre:</label>
+                        <input type="number" class="form-control" id="order-<?= htmlspecialchars($network['id']); ?>" value="<?= htmlspecialchars($network['reseau_order']); ?>" min="1">
+                    </div>
+
+                    <!-- Boutons d'action -->
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-primary update-order">Mettre à jour l'ordre</button>
+                        <button class="btn btn-danger remove_network_button">Supprimer</button>
+                    </div>
                 </div>
             </div>
         </div>
     <?php endforeach; ?>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.card.h-100');
+
+        cards.forEach(card => {
+            card.addEventListener('click', function(event) {
+                // Vérifier si le clic provient du bouton "Supprimer"
+                const removeButton = card.querySelector('.remove_network_button');
+
+                if (!removeButton.contains(event.target)) {
+                    const networkId = card.getAttribute('data-network-id');
+                    window.location.href = `detail-link.php?id=${networkId}`;
+                }
+            });
+        });
+    });
+</script>

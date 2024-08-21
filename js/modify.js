@@ -1,4 +1,6 @@
 window.onload = function() {
+
+    // Supprimer un lien
     document.querySelectorAll('.remove_network_button').forEach(button => {
         button.onclick = function(e) {
             let networkId = e.currentTarget.parentElement.parentElement.dataset.networkId;
@@ -25,17 +27,21 @@ window.onload = function() {
         }
     });
 
+    // Ajouter un lien
     document.querySelector('#add_network_form').onsubmit = function(e) {
         e.preventDefault();
         let networkName = document.querySelector('#network_name').value;
         let networkUrl = document.querySelector('#network_url').value;
         let networkIcon = document.querySelector('#network_icon').value;
+        let networkNsfw = document.querySelector('#network_nsfw').checked ? 1 : 0; // Convertir en booléen (0 ou 1)
+        let networkActive = document.querySelector('#network_active').checked ? 1 : 0; // Convertir en booléen (0 ou 1)
+
         fetch("php/add_network.php", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `network_name=${networkName}&network_url=${networkUrl}&network_icon=${networkIcon}`
+            body: `network_name=${networkName}&network_url=${networkUrl}&network_icon=${networkIcon}&network_nsfw=${networkNsfw}&network_active=${networkActive}`
         }).then(response => response.text())
             .then(response => {
                 if (response === 'Ok') {
@@ -56,6 +62,7 @@ window.onload = function() {
             });
     };
 
+    // Modifier l'ordre des liens
     document.querySelectorAll('.update-order').forEach(function(button) {
         button.addEventListener('click', function (event) {
             let networkId = button.parentElement.parentElement.dataset.networkId;

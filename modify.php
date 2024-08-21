@@ -112,23 +112,33 @@ if (!isset($_SESSION['username'])) {
 </div>
 </div>
 
-<div class="container my-3"> <!-- ajout d'un espace à l'extérieur du conteneur (marge en haut et en bas) -->
-    <h1 class="mb-3">Gestion des réseaux sociaux</h1> <!-- ajout d'un espace en dessous du titre (marge en bas) -->
+<div class="container my-5">
+    <!-- Titre principal -->
+    <h1 class="text-center mb-4">Gestion des réseaux sociaux</h1>
+
     <div class="row">
-        <div class="col">
-            <h3 class="mb-3">Réseaux existants</h3>
-            <div id="networks_cards" class="row">
+        <!-- Section Réseaux existants -->
+        <div class="col-md-8">
+            <h3 class="mb-4">Réseaux existants</h3>
+            <div id="networks_cards" class="row g-4">
                 <?php require 'php/get_networks.php'; ?>
             </div>
         </div>
 
-        <div class="col mt-3">
-            <h3 class="mb-3">Ajouter un réseau</h3>
-            <form id="add_network_form">
+        <div class="col-md-4">
+            <h3 class="mb-4">Ajouter un réseau</h3>
+            <form id="add_network_form" class="p-3 bg-light shadow-sm rounded">
                 <div class="mb-3">
-                    <input type="text" class="form-control mb-2" id="network_name" placeholder="Nom du réseau" required>
-                    <input type="url" class="form-control mb-2" id="network_url" placeholder="URL du réseau" required>
-                    <select class="form-select mb-2" id="network_icon" required>
+                    <label for="network_name" class="form-label">Nom du réseau</label>
+                    <input type="text" id="network_name" class="form-control" placeholder="Nom du réseau" required>
+                </div>
+                <div class="mb-3">
+                    <label for="network_url" class="form-label">URL du réseau</label>
+                    <input type="url" id="network_url" class="form-control" placeholder="URL du réseau" required>
+                </div>
+                <div class="mb-3">
+                    <label for="network_icon" class="form-label">Icône</label>
+                    <select id="network_icon" class="form-select" required>
                         <option value="">Choisissez une icône...</option>
                         <option value="discord.svg">Discord</option>
                         <option value="telegram.svg">Telegram</option>
@@ -144,8 +154,16 @@ if (!isset($_SESSION['username'])) {
                         <option value="furaffinity.png">Fur Affinity</option>
                         <option value="lien.png">Lien externe</option>
                     </select>
-                    <button type="submit" class="btn btn-primary m-1">Ajouter</button>
                 </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" id="network_nsfw" class="form-check-input">
+                    <label for="network_nsfw" class="form-check-label">NSFW</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" id="network_active" class="form-check-input">
+                    <label for="network_active" class="form-check-label">Actif</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Ajouter</button>
             </form>
         </div>
     </div>

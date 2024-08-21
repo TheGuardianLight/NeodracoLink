@@ -18,6 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $networkName = $_POST['network_name'];
     $networkUrl = $_POST['network_url'];
     $networkIcon = $_POST['network_icon'];
+    $networkNsfw = isset($_POST['network_nsfw']) ? $_POST['network_nsfw'] : 0;
+    $networkActive = isset($_POST['network_active']) ? $_POST['network_active'] : 0;
 
     if (empty($networkName)) {
         echo "Le nom du réseau est requis.";
@@ -25,10 +27,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Add network
-    $sql = $conn->prepare("INSERT INTO reseaux (nom, url, icone) VALUES (:networkName, :networkUrl, :networkIcon)");
+    $sql = $conn->prepare("INSERT INTO reseaux (nom, url, icone, nsfw, active) VALUES (:networkName, :networkUrl, :networkIcon, :networkNsfw, :networkActive)");
     $sql->bindParam(':networkName', $networkName);
     $sql->bindParam(':networkUrl', $networkUrl);
     $sql->bindParam(':networkIcon', $networkIcon);
+    $sql->bindParam(':networkNsfw', $networkNsfw);
+    $sql->bindParam(':networkActive', $networkActive);
 
     try {
         $sql->execute();
