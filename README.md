@@ -24,12 +24,12 @@ En plus des options actuellement implémenté tels que :
 - [x] La possibilité d'avoir une photo de profil.
 - [x] La possibilité de modifier l'ordre des réseaux.
 - [x] La possibilité que la liste des réseaux de chaque utilisateur puissent être accessible sans devoir se connecter. *(Ajouté dans la [v2.0.0](https://github.com/TheGuardianLight/NeodracoLink/releases/tag/v2.0.0))*
+- [x] L'affichage d'un avertissement pour les liens pouvant contenir du contenu +18.
 
 J'ai prévu d'y ajouter d'autres fonctions :
 
 - [ ] Ajouter une documentation intégré au site.
 - [ ] L'ajout de catégories.
-- [ ] L'affichage d'un avertissement pour les liens pouvant contenir du contenu +18.
 
 ## Des problèmes ? Des idées d'améliorations ?
 
