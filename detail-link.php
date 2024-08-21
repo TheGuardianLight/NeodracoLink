@@ -68,6 +68,11 @@ require 'php/detail-link_function.php';
             </select>
         </div>
 
+        <div class="form-group mb-3">
+            <label for="network_order" class="form-label">Ordre<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="network_order" name="order" value="<?= htmlspecialchars($linkData['reseau_order']) ?>" required>
+        </div>
+
         <div class="form-check form-switch mb-3">
             <input class="form-check-input" type="checkbox" id="network_nsfw" name="nsfw" <?= $linkData['nsfw'] ? 'checked' : '' ?>>
             <label class="form-check-label" for="network_nsfw">NSFW</label>
