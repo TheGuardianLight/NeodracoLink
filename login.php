@@ -32,27 +32,31 @@ function getLoginFormError() {
 <body>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-5">
-            <h2 class="text-center my-4">Connexion</h2>
-            <form action="login.php" method="POST">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                </div>
+        <div class="col-lg-5 col-md-8">
+            <div class="card shadow-sm my-5">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Connexion</h2>
+                    <form action="login.php" method="POST">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        </div>
 
-                <div class="form-group mt-2">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe">
-                </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+                        </div>
 
-                <div class="d-grid gap-2 mt-3">
-                    <button type="submit" class="btn btn-primary" name="login">Se connecter</button>
-                    <?php if ($config['allowSignup'] == "true"): ?>
-                        <button type="button" class="btn btn-secondary" onclick="location.href='register.php'">S'inscrire</button>
-                    <?php endif; ?>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary" name="login">Se connecter</button>
+                            <?php if ($config['allowSignup'] == "true"): ?>
+                                <button type="button" class="btn btn-secondary" onclick="location.href='register.php'">S'inscrire</button>
+                            <?php endif; ?>
+                        </div>
+                        <?php getLoginFormError(); ?>
+                    </form>
                 </div>
-                <?php getLoginFormError(); ?>
-            </form>
+            </div>
         </div>
     </div>
 </div>
