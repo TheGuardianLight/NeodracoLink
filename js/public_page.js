@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (isNsfw === 1) {
             currentUrl = url;
             modalTitle.innerText = 'Avertissement';
-            modalMessage.innerText = 'Ce lien est marqué comme NSFW. Êtes-vous sûr de vouloir continuer?';
+            modalMessage.innerText = 'Ce lien peut contenir du contenu inapproprié ou réservé à un public averti. Vous devez être âgé d\'au moins 18 ans pour continuer. Voulez-vous vraiment poursuivre?';
             modalFooter.style.display = 'block';
         } else {
             window.open(url, '_blank');
