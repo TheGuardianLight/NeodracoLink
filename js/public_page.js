@@ -44,9 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTitle = document.getElementById('nsfwModalLabel');
     const modalMessage = document.getElementById('modalMessage');
     const modalFooter = document.getElementById('modalFooter');
+    const warningIcon = document.getElementById('warningIcon');
+    const prohibitedIcon = document.getElementById('prohibitedIcon');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const continueBtn = document.getElementById('continueBtn');
+    const okBtn = document.getElementById('okBtn');
     let currentUrl = '';
 
-    document.getElementById('continueBtn').addEventListener('click', () => {
+    continueBtn.addEventListener('click', () => {
         window.open(currentUrl, '_blank');
         modal.hide();
     });
@@ -57,12 +62,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isActive === 0) {
             modalTitle.innerText = 'Lien désactivé';
             modalMessage.innerText = 'Ce lien est actuellement désactivé.';
-            modalFooter.style.display = 'none';
+
+            warningIcon.style.display = 'block';
+            prohibitedIcon.style.display = 'none';
+
+            cancelBtn.style.display = 'none';
+            continueBtn.style.display = 'none';
+            okBtn.style.display = 'block';
         } else if (isNsfw === 1) {
             currentUrl = url;
-            modalTitle.innerText = 'Avertissement';
-            modalMessage.innerText = 'Ce lien peut contenir du contenu inapproprié ou réservé à un public averti. Vous devez être âgé d\'au moins 18 ans pour continuer. Voulez-vous vraiment poursuivre?';
-            modalFooter.style.display = 'block';
+            modalTitle.innerText = 'Avertissement - Contenu réservé aux adultes';
+            modalMessage.innerHTML = `
+                <p>Ce lien peut contenir du contenu inapproprié ou réservé à un public averti.</p>
+                <p>Vous devez être âgé d'au moins 18 ans pour continuer.</p>
+                <p>Voulez-vous vraiment poursuivre?</p>
+            `;
+
+            warningIcon.style.display = 'none';
+            prohibitedIcon.style.display = 'block';
+
+            cancelBtn.style.display = 'block';
+            continueBtn.style.display = 'block';
+            okBtn.style.display = 'none';
         } else {
             window.open(url, '_blank');
             return;

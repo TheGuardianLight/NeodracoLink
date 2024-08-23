@@ -73,19 +73,21 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
 
 <!-- Modal de mise en garde pour liens désactivés ou NSFW -->
 <div class="modal fade" id="nsfwModal" tabindex="-1" aria-labelledby="nsfwModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-warning text-dark">
                 <h5 class="modal-title" id="nsfwModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <i class="fas fa-exclamation-triangle fa-2x mb-3 text-danger"></i>
+                <i id="warningIcon" class="fas fa-exclamation-triangle fa-2x mb-3 text-danger"></i>
+                <i id="prohibitedIcon"><img src="images/logo/no-minors.png" alt="Interdiction aux mineurs" class="d-block mx-auto mb-3" style="display: none; width: 100px; height: 100px;" /></i>
                 <p id="modalMessage"></p>
             </div>
-            <div class="modal-footer justify-content-center" id="modalFooter">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <div class="modal-footer d-flex justify-content-center" id="modalFooter">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelBtn">Annuler</button>
                 <button type="button" class="btn btn-primary" id="continueBtn">Continuer</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="okBtn" style="display: none;">Ok</button>
             </div>
         </div>
     </div>
