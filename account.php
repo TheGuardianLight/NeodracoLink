@@ -53,6 +53,7 @@ $formFields = [
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Mon compte</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link href="styles.css" rel="stylesheet"/>
     <?php require 'php/favicon.php' ?>
@@ -65,12 +66,12 @@ $formFields = [
     <!-- Formulaire pour les informations personnelles -->
     <div class="card mb-4">
         <div class="card-header">
-            <h3>Informations personnelles</h3>
+            <h3><i class="bi bi-person-circle me-2"></i>Informations personnelles</h3>
         </div>
         <div class="card-body">
             <p class="card-text text-muted">
                 Information : votre profil public sera accessible ici :
-                <a href="https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>" hreflang="fr" target="_blank">
+                <a href="https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>" hreflang="fr" target="_blank" rel="noopener noreferrer">
                     https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>
                 </a>
             </p>
@@ -82,19 +83,16 @@ $formFields = [
                         <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($userInfo['username']) ?>" disabled>
                     </div>
                 </div>
-                <?php foreach ($formFields as $fieldName => $fieldData) :
-                    $label = $fieldData[0];
-                    $type = $fieldData[1];
-                    ?>
+                <?php foreach ($formFields as $fieldName => $fieldData) : ?>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="<?= htmlspecialchars($fieldName) ?>" class="form-label"><?= htmlspecialchars($label) ?></label>
-                            <input type="<?= htmlspecialchars($type) ?>" class="form-control" id="<?= htmlspecialchars($fieldName) ?>" name="<?= htmlspecialchars($fieldName) ?>" value="<?= htmlspecialchars($userInfo[$fieldName]) ?>">
+                            <label for="<?= htmlspecialchars($fieldName) ?>" class="form-label"><?= htmlspecialchars($fieldData[0]); ?></label>
+                            <input type="<?= htmlspecialchars($fieldData[1]) ?>" class="form-control" id="<?= htmlspecialchars($fieldName) ?>" name="<?= htmlspecialchars($fieldName) ?>" value="<?= htmlspecialchars($userInfo[$fieldName]) ?>">
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Mettre à jour les informations</button>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-save me-2"></i>Mettre à jour les informations</button>
                 </div>
             </form>
         </div>
@@ -103,7 +101,7 @@ $formFields = [
     <!-- Formulaire pour changer le mot de passe -->
     <div class="card mb-4">
         <div class="card-header">
-            <h3>Changer le mot de passe</h3>
+            <h3><i class="bi bi-lock me-2"></i>Changer le mot de passe</h3>
         </div>
         <div class="card-body">
             <form method="post" class="row g-3">
@@ -116,8 +114,8 @@ $formFields = [
                     <label for="confirm_password" class="form-label">Confirmer le nouveau mot de passe</label>
                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                 </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Mettre à jour le mot de passe</button>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-save me-2"></i>Mettre à jour le mot de passe</button>
                 </div>
             </form>
         </div>
@@ -126,7 +124,7 @@ $formFields = [
     <!-- Formulaire pour changer l'image de profil -->
     <div class="card mb-4">
         <div class="card-header">
-            <h3>Changer l'image de profil</h3>
+            <h3><i class="bi bi-image me-2"></i>Changer l'image de profil</h3>
         </div>
         <div class="card-body">
             <form method="post" enctype="multipart/form-data" class="row g-3">
@@ -152,8 +150,8 @@ $formFields = [
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Mettre à jour l'image de profil</button>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-save me-2"></i>Mettre à jour l'image de profil</button>
                 </div>
             </form>
         </div>

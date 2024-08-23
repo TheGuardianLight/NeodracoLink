@@ -35,22 +35,28 @@ function getLoginFormError() {
         <div class="col-lg-5 col-md-8">
             <div class="card shadow-sm my-5">
                 <div class="card-body p-4">
-                    <h2 class="text-center mb-4">Connexion</h2>
+                    <h2 class="text-center mb-4"><i class="bi bi-box-arrow-in-right me-2"></i>Connexion</h2>
                     <form action="login.php" method="POST">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="password" class="form-label">Mot de passe</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+                            </div>
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary" name="login">Se connecter</button>
+                            <button type="submit" class="btn btn-primary" name="login"><i class="bi bi-person-check me-2"></i>Se connecter</button>
                             <?php if ($config['allowSignup'] == "true"): ?>
-                                <button type="button" class="btn btn-secondary" onclick="location.href='register.php'">S'inscrire</button>
+                                <button type="button" class="btn btn-secondary" onclick="location.href='register.php'"><i class="bi bi-person-plus me-2"></i>S'inscrire</button>
                             <?php endif; ?>
                         </div>
                         <?php getLoginFormError(); ?>
