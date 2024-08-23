@@ -33,44 +33,63 @@ $versions = json_decode($json, true);
 <?php require 'php/menu.php' ?>
 
 <div class="container mt-5">
-    <div class="card">
-        <div class="card-body">
-            <h1 class="text-center mb-4">A propos :</h1>
-            <p class="lead">
-                <strong>Développeur&nbsp;:</strong> <a class="text-decoration-none" href="https://noaledet.fr" hreflang="fr" rel="external" target="_blank">Noa LEDET</a>
-            </p>
-            <p class="lead">
-                <strong>Problèmes et issues&nbsp;:</strong> <a class="text-decoration-none" href="https://github.com/TheGuardianLight/NeodracoLink/issues" target="_blank">Github</a>
-            </p>
-            <p class="lead">
-                <strong>Versions&nbsp;:</strong>
-            </p>
-            <table class="table table-striped ml-4 table_about">
-                <?php foreach($versions as $tech => $version): ?>
-                    <tr>
-                        <td><?= ucfirst($tech) ?></td>
-                        <td><?= $version ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h1 class="text-center mb-0">À propos</h1>
         </div>
         <div class="card-body">
-            <p class="lead card-text">
-                <strong>Icônes réseaux sociaux&nbsp;:</strong>
-                <a class="icon-link" href="https://www.streamlinehq.com/icons/logos-solid" target="_blank">
-                    https://www.streamlinehq.com/icons/logos-solid
-                </a>
-            </p>
-            <p class="lead card-text">
-                <strong>Icône de lien&nbsp;:</strong>
-                <a class="icon-link" href="https://www.flaticon.com/fr/icone-gratuite/lien_2985013?term=lien&related_id=2985013" title="lien icônes" target="_blank">
-                    Lien icônes créées par alkhalifi design - Flaticon
-                </a>
-            </p>
-            <p class="lead card-text">
-                <strong>Logo bluesky&nbsp;:</strong>
-                Par Eric Bailey&nbsp;: <a rel="nofollow" class="external free" href="https://drive.google.com/drive/folders/1RDpuQOQMfM9mXQ61wUYWNZUbgvDc8r-n">https://drive.google.com/drive/folders/1RDpuQOQMfM9mXQ61wUYWNZUbgvDc8r-n</a>, Domaine public, <a href="https://commons.wikimedia.org/w/index.php?curid=145139541">Lien</a>
-            </p>
+            <div class="mb-4">
+                <h2 class="h4">Développeur :</h2>
+                <p class="lead">
+                    <a class="text-decoration-none" href="https://noaledet.fr" hreflang="fr" rel="external" target="_blank">Noa LEDET</a>
+                </p>
+            </div>
+            <div class="mb-4">
+                <h2 class="h4">Problèmes et issues :</h2>
+                <p class="lead">
+                    <a class="text-decoration-none" href="https://github.com/TheGuardianLight/NeodracoLink/issues" target="_blank">Github</a>
+                </p>
+            </div>
+            <div class="mb-4">
+                <h2 class="h4">Versions :</h2>
+                <table class="table table-striped ml-4 table_about">
+                    <thead>
+                    <tr>
+                        <th>Technologie</th>
+                        <th>Version</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($versions as $tech => $version): ?>
+                        <tr>
+                            <td><?= ucfirst($tech) ?></td>
+                            <td><?= $version ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mb-4">
+                <h2 class="h4">Ressources :</h2>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <strong>Icônes réseaux sociaux :</strong>
+                        <a class="text-decoration-none" href="https://www.streamlinehq.com/icons/logos-solid" target="_blank">Logos - Streamline HQ</a>
+                    </li>
+                    <li class="mb-2">
+                        <strong>Icône de lien :</strong>
+                        <a class="text-decoration-none" href="https://www.flaticon.com/fr/icone-gratuite/lien_2985013?term=lien&related_id=2985013" title="lien icônes" target="_blank">Créée par alkhalifi design - Flaticon</a>
+                    </li>
+                    <li class="mb-2">
+                        <strong>Logo bluesky :</strong>
+                        Par Eric Bailey : <a class="text-decoration-none" href="https://drive.google.com/drive/folders/1RDpuQOQMfM9mXQ61wUYWNZUbgvDc8r-n" rel="nofollow" target="_blank">Google Drive</a>, Domaine public, <a class="text-decoration-none" href="https://commons.wikimedia.org/w/index.php?curid=145139541" target="_blank">Lien</a>
+                    </li>
+                    <li>
+                        <strong>Logo +18 :</strong>
+                        <a class="text-decoration-none" href="https://www.flaticon.com/free-icons/18" title="18 icons" rel="nofollow" target="_blank">Créé par Freepik - Flaticon</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
