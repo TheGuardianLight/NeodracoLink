@@ -36,30 +36,29 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
     <main class="container my-5 text-white">
         <!-- Section utilisateur -->
         <div class="text-center mb-4">
-            <img src="<?= $backgroundImage ?>" class="rounded-circle" alt="Photo de profil" style="width: 100px; height: 100px;">
+            <img src="<?= htmlspecialchars($backgroundImage) ?>" class="rounded-circle" alt="Photo de profil" style="width: 100px; height: 100px;">
             <h2 class="mt-3 text-black">@<?= htmlspecialchars($_GET['username']) ?></h2>
         </div>
 
         <?php if (empty($sites)): ?>
-            <div class="alert alert-warning">Aucun réseau disponible pour cet utilisateur.</div>
+            <div class="alert alert-warning rounded-3">Aucun réseau disponible pour cet utilisateur.</div>
         <?php else: ?>
             <?php foreach ($sites as $site): ?>
-                <div class="list-group">
-                    <div class="list-group-item align-items-start d-flex">
+                <div class="list-group mb-3">
+                    <div class="list-group-item align-items-start d-flex rounded-3">
                         <a href="<?= htmlspecialchars($site['url']) ?>"
-                           class="d-flex align-items-center site-item"
-                           style="flex-grow: 1;"
+                           class="d-flex align-items-center site-item flex-grow-1 text-decoration-none text-center"
                            target="_blank"
                            rel="external"
                            onclick="warnBeforeNsfw(event, '<?= htmlspecialchars($site['url']) ?>', <?= (int)$site['nsfw'] ?>, <?= (int)$site['active'] ?>)">
-                            <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
-                            <h5 class="mb-1 text-center fs-4 placeholder-glow" style="width: 100%"><?= htmlspecialchars($site['nom']) ?></h5>
+                            <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3 rounded-3" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
+                            <h5 class="mb-1 fs-4 flex-grow-1 text-center"><?= htmlspecialchars($site['nom']) ?></h5>
                         </a>
                         <div class="dropdown">
-                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn" type="button" id="dropdownMenuButton-<?= htmlspecialchars($site['url']) ?>" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-lg"></i>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton-<?= htmlspecialchars($site['url']) ?>">
                                 <li><a class="dropdown-item" href="#" data-clipboard-text="<?= htmlspecialchars($site['url']) ?>" onclick="copyToClipboard(event)">Copier</a></li>
                                 <li><a class="dropdown-item" href="#" onclick="share(event, '<?= htmlspecialchars($site['url']) ?>')">Partager</a></li>
                             </ul>
