@@ -62,83 +62,102 @@ $formFields = [
 <?php require 'php/menu.php' ?>
 
 <div class="container my-3">
-
     <!-- Formulaire pour les informations personnelles -->
-    <form method="post" class="row g-3">
-        <input type="hidden" name="update_info" value="1">
-        <h3>Informations personnelles</h3>
-        <p class="card-text text-muted">
-            Information&nbsp;: votre profil public sera accessible ici&nbsp;: <a href="https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>" hreflang="fr" target="_blank">https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?></a>
-        </p>
-        <div class="col-md-6">
-            <div class="mb-3">
-                <label for="username" class="form-label">Nom d'utilisateur</label>
-                <input type="text" class="form-control" id="username" name="username" value="<?= $userInfo['username'] ?>" disabled>
-            </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Informations personnelles</h3>
         </div>
-        <?php foreach ($formFields as $fieldName => $fieldData) :
-            $label = $fieldData[0];
-            $type = $fieldData[1];
-            ?>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="<?= $fieldName ?>" class="form-label"><?= $label ?></label>
-                    <input type="<?= $type ?>" class="form-control" id="<?= $fieldName ?>" name="<?= $fieldName ?>"
-                           value="<?= $userInfo[$fieldName] ?>">
+        <div class="card-body">
+            <p class="card-text text-muted">
+                Information : votre profil public sera accessible ici :
+                <a href="https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>" hreflang="fr" target="_blank">
+                    https://link.neodraco.fr/<?= htmlspecialchars($_SESSION['username']) ?>
+                </a>
+            </p>
+            <form method="post" class="row g-3">
+                <input type="hidden" name="update_info" value="1">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($userInfo['username']) ?>" disabled>
+                    </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Mettre à jour les informations</button>
+                <?php foreach ($formFields as $fieldName => $fieldData) :
+                    $label = $fieldData[0];
+                    $type = $fieldData[1];
+                    ?>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="<?= htmlspecialchars($fieldName) ?>" class="form-label"><?= htmlspecialchars($label) ?></label>
+                            <input type="<?= htmlspecialchars($type) ?>" class="form-control" id="<?= htmlspecialchars($fieldName) ?>" name="<?= htmlspecialchars($fieldName) ?>" value="<?= htmlspecialchars($userInfo[$fieldName]) ?>">
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Mettre à jour les informations</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 
     <!-- Formulaire pour changer le mot de passe -->
-    <form method="post" class="row g-3 mt-4">
-        <input type="hidden" name="update_password" value="1">
-        <h3>Changer le mot de passe</h3>
-        <div class="col-md-6">
-            <label for="password" class="form-label">Nouveau mot de passe</label>
-            <input type="password" class="form-control" id="password" name="password">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Changer le mot de passe</h3>
         </div>
-        <div class="col-md-6">
-            <label for="confirm_password" class="form-label">Confirmer le nouveau mot de passe</label>
-            <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+        <div class="card-body">
+            <form method="post" class="row g-3">
+                <input type="hidden" name="update_password" value="1">
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Nouveau mot de passe</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="confirm_password" class="form-label">Confirmer le nouveau mot de passe</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Mettre à jour le mot de passe</button>
+                </div>
+            </form>
         </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Mettre à jour le mot de passe</button>
-        </div>
-    </form>
+    </div>
 
     <!-- Formulaire pour changer l'image de profil -->
-    <form method="post" enctype="multipart/form-data" class="row g-3 mt-4">
-        <input type="hidden" name="update_profile_pic" value="1">
-        <h3>Changer l'image de profil</h3>
-        <div class="col-md-6">
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <?php if (!empty($userInfo['profile_pic_name'])): ?>
-                            <img src="/images/profile_pic/<?= $userInfo['profile_pic_name'] ?>" class="img-fluid rounded-start" alt="Photo de profil">
-                        <?php else: ?>
-                            <img src="/images/default.png" class="img-fluid rounded-start" alt="Photo de profil par défaut">
-                        <?php endif; ?>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Photo de profil</h5>
-                            <label for="profile_pic" class="form-label">Choisir une nouvelle image</label>
-                            <p class="text-muted">Veuillez sélectionner une image au format carré.</p>
-                            <input type="file" class="form-control" id="profile_pic" name="profile_pic" accept=".png, .jpg, .jpeg, .webp, .svg">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Changer l'image de profil</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="row g-3">
+                <input type="hidden" name="update_profile_pic" value="1">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <?php if (!empty($userInfo['profile_pic_name'])): ?>
+                                    <img src="/images/profile_pic/<?= htmlspecialchars($userInfo['profile_pic_name']) ?>" class="img-fluid rounded-start" alt="Photo de profil">
+                                <?php else: ?>
+                                    <img src="/images/default.png" class="img-fluid rounded-start" alt="Photo de profil par défaut">
+                                <?php endif; ?>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Photo de profil</h5>
+                                    <label for="profile_pic" class="form-label">Choisir une nouvelle image</label>
+                                    <p class="text-muted">Veuillez sélectionner une image au format carré.</p>
+                                    <input type="file" class="form-control" id="profile_pic" name="profile_pic" accept=".png, .jpg, .jpeg, .webp, .svg">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Mettre à jour l'image de profil</button>
+                </div>
+            </form>
         </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Mettre à jour l'image de profil</button>
-        </div>
-    </form>
+    </div>
 </div>
 
 <?php require 'php/footer.php'?>
