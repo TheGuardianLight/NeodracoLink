@@ -42,17 +42,17 @@ if (isset($_GET['success']) && $_GET['success'] === '1') {
 }
 ?>
 
-<div class="container">
+<div class="container my-3">
     <!-- Tabs -->
     <ul class="nav nav-pills my-4" id="adminTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="export-tab" data-bs-toggle="pill" data-bs-target="#export"
-                    type="button" role="tab" aria-controls="export">Exporter les données
+            <button class="nav-link active" id="export-tab" data-bs-toggle="pill" data-bs-target="#export"
+                    type="button" role="tab" aria-controls="export" aria-selected="true">Exporter les données
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="import-tab" data-bs-toggle="pill" data-bs-target="#import" type="button"
-                    role="tab" aria-controls="import">Importer les données
+                    role="tab" aria-controls="import" aria-selected="false">Importer les données
             </button>
         </li>
     </ul>
@@ -60,7 +60,7 @@ if (isset($_GET['success']) && $_GET['success'] === '1') {
     <!-- Tabs content -->
     <div class="tab-content" id="adminTabsContent">
         <!-- Export tab -->
-        <div class="tab-pane fade" id="export" role="tabpanel" aria-labelledby="export-tab">
+        <div class="tab-pane fade show active" id="export" role="tabpanel" aria-labelledby="export-tab">
             <div class="card my-4">
                 <div class="card-body">
                     <form action="php/manager.php" method="post">
@@ -76,7 +76,8 @@ if (isset($_GET['success']) && $_GET['success'] === '1') {
                 <div class="card-body">
                     <form action="php/manager.php" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <input class="form-control" type="file" name="file">
+                            <label for="importFile" class="form-label">Choisir un fichier</label>
+                            <input class="form-control" type="file" name="file" id="importFile" required>
                         </div>
                         <button type="submit" name="import" class="btn btn-primary">Importer les données</button>
                     </form>
@@ -93,29 +94,22 @@ $conn = null; // fermeture de la connexion à la base de données
 <?php require 'js/bootstrap_script.html' ?>
 
 <script>
-    // tab switcher function
-    function switchTab() {
-        const tabs = Array.from(document.querySelectorAll('#adminTabs .nav-link'));
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabs = document.querySelectorAll('#adminTabs .nav-link');
         const activeTabName = localStorage.getItem('activeTab');
-        const activeTab = tabs.find(tab => tab.id === activeTabName);
-        if (activeTab) {
-            const tab = new bootstrap.Tab(activeTab);
-            tab.show();
+        if (activeTabName) {
+            const activeTab = document.getElementById(activeTabName);
+            if (activeTab) {
+                const tab = new bootstrap.Tab(activeTab);
+                tab.show();
+            }
         }
-    }
 
-    // tab click listener
-    const adminTabsEl = document.querySelector('#adminTabs')
-    adminTabsEl.addEventListener('click', (event) => {
-        const target = event.target;
-        if (target.classList.contains('nav-link')) {
-            localStorage.setItem('activeTab', target.id);
-        }
-    });
-
-    // call on page load
-    document.addEventListener("DOMContentLoaded", function () {
-        switchTab();
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                localStorage.setItem('activeTab', this.id);
+            });
+        });
     });
 </script>
 
