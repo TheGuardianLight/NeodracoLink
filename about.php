@@ -86,7 +86,7 @@ $versions = json_decode($json, true);
                     </li>
                     <li>
                         <strong>Logo +18 :</strong>
-                        <a class="text-decoration-none" href="https://www.flaticon.com/free-icons/18" title="18 icons" rel="nofollow" target="_blank">Créé par Freepik - Flaticon</a>
+                        <a class="text-decoration-none" href="https://www.flaticon.com/free-icon/no-minors_5181956?term=18&page=1&position=8&origin=tag&related_id=5181956" title="18 icons" rel="nofollow" target="_blank">Créé par Freepik - Flaticon</a>
                     </li>
                 </ul>
             </div>
