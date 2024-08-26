@@ -206,7 +206,7 @@ main {
     }
 }
 
-@media (min-device-width: 601px){
+@media (min-device-width: 600px){
     .list-group-item {
         width: 70% !important;
     }
