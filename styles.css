@@ -164,3 +164,39 @@ main {
 .disabled {
     opacity: 0.6;
 }
+
+.mobile-show {
+    display: block;
+}
+
+@media (max-width: 576px) {
+    .content {
+        padding: 0 15px;
+    }
+
+    .rounded-circle {
+        width: 80px !important;
+        height: 80px !important;
+    }
+
+    h2 {
+        font-size: 1.5rem !important;
+    }
+
+    .list-group-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .list-group-item img {
+        margin-bottom: 10px;
+    }
+
+    .site-item h5 {
+        font-size: 1.2rem !important;
+    }
+
+    .mobile-show {
+        display: none;
+    }
+}

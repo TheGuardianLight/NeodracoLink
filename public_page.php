@@ -1,8 +1,4 @@
 <?php
-/**
- * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
- */
-
 global $dbConfig, $username;
 require 'vendor/autoload.php';
 require 'php/api_config.php';
@@ -24,17 +20,16 @@ $username = $username ?? '';
 </head>
 <body>
 
-<!-- Section de fond flouté -->
 <?php
 $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/{$userInfo['profile_pic_name']}" : '/images/default.png';
 ?>
+
 <div class="background-blur" style="background-image: url('<?= $backgroundImage ?>');"></div>
 
 <?php require 'php/menu.php'; ?>
 
 <div class="content">
     <main class="container my-5 text-white">
-        <!-- Section utilisateur -->
         <div class="text-center mb-4">
             <img src="<?= htmlspecialchars($backgroundImage) ?>" class="rounded-circle" alt="Photo de profil" style="width: 100px; height: 100px;">
             <h2 class="mt-3 text-black">@<?= htmlspecialchars($_GET['username']) ?></h2>
@@ -45,16 +40,16 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
         <?php else: ?>
             <?php foreach ($sites as $site): ?>
                 <div class="list-group mb-3">
-                    <div class="list-group-item align-items-start d-flex rounded-3">
+                    <div class="list-group-item align-items-start d-flex rounded-3 flex-column flex-md-row text-center text-md-start">
                         <a href="<?= htmlspecialchars($site['url']) ?>"
-                           class="d-flex align-items-center site-item flex-grow-1 text-decoration-none text-center"
+                           class="d-flex align-items-center site-item flex-grow-1 text-decoration-none text-center text-md-start"
                            target="_blank"
                            rel="external"
                            onclick="warnBeforeNsfw(event, '<?= htmlspecialchars($site['url']) ?>', <?= (int)$site['nsfw'] ?>, <?= (int)$site['active'] ?>)">
                             <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3 rounded-3" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
-                            <h5 class="mb-1 fs-4 flex-grow-1 text-center"><?= htmlspecialchars($site['nom']) ?></h5>
+                            <h5 class="mb-1 fs-4 flex-grow-1 text-center text-md-start"><?= htmlspecialchars($site['nom']) ?></h5>
                         </a>
-                        <div class="dropdown">
+                        <div class="dropdown mt-2 mt-md-0 ms-md-3 mobile-show">
                             <button class="btn" type="button" id="dropdownMenuButton-<?= htmlspecialchars($site['url']) ?>" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-lg"></i>
                             </button>
@@ -70,7 +65,6 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
     </main>
 </div>
 
-<!-- Modal de mise en garde pour liens désactivés ou NSFW -->
 <div class="modal fade" id="nsfwModal" tabindex="-1" aria-labelledby="nsfwModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
