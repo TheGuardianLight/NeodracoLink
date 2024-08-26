@@ -144,11 +144,25 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
 <script src="js/jquery-3.7.1.js"></script>
 <script src="js/cropper.js" defer></script>
 
-<script defer>
+<style>
+    #upload-demo-container {
+        width: 400px;  /* Largeur fixe du conteneur */
+        height: 400px; /* Hauteur fixe du conteneur */
+        position: relative; /* Pour le positionnement de l'image */
+    }
+    #upload-demo {
+        max-width: 100%;
+        max-height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         var cropper;
-        const fixedWidth = 400;  // Largeur fixe pour l'affichage de l'image
-        const fixedHeight = 400; // Hauteur fixe pour l'affichage de l'image
 
         function readFile(input) {
             if (input.files && input.files[0]) {
@@ -157,18 +171,6 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
                     var img = document.getElementById('upload-demo');
                     img.src = e.target.result;
                     img.onload = function () {
-                        // Redimensionner l'image pour qu'elle tienne dans les dimensions fixes, tout en conservant les proportions
-                        const naturalWidth = img.naturalWidth;
-                        const naturalHeight = img.naturalHeight;
-
-                        if (naturalWidth / naturalHeight > fixedWidth / fixedHeight) {
-                            img.width = fixedWidth;
-                            img.height = (naturalHeight / naturalWidth) * fixedWidth;
-                        } else {
-                            img.width = (naturalWidth / naturalHeight) * fixedHeight;
-                            img.height = fixedHeight;
-                        }
-
                         // Initialiser Cropper.js
                         cropper = new Cropper(img, {
                             aspectRatio: 1, // Carré
@@ -199,8 +201,8 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
         // Gestion de l'événement de recadrage et de sauvegarde de l'image
         document.getElementById('cropImageBtn').addEventListener('click', function () {
             var canvas = cropper.getCroppedCanvas({
-                width: fixedWidth,
-                height: fixedHeight,
+                width: 400,
+                height: 400,
             });
             canvas.toBlob(function (blob) {
                 // Convertir le blob en base64 pour l'envoyer via le formulaire
