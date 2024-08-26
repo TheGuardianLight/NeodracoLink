@@ -185,8 +185,8 @@ main {
 
     .list-group-item {
         flex-direction: column;
-        text-align: justify;
-        width: 90%;
+        text-align: justify !important;
+        width: 90% !important;
     }
 
     .list-group-item img {
