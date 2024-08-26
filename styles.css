@@ -169,10 +169,6 @@ main {
     display: block;
 }
 
-.list-group-item {
-    width: 90% !important;
-}
-
 @media (max-width: 600px) {
     .content {
         padding: 0 15px;
@@ -189,8 +185,9 @@ main {
 
     .list-group-item {
         flex-direction: column;
-        text-align: justify !important;
-        width: 90% !important;
+        text-align: center; /* Changed to center for better text alignment across devices */
+        width: 100% !important; /* Adjusted to 100% for consistency */
+        margin: 0 auto; /* Centrally aligns the list-group-item */
     }
 
     .list-group-item img {
@@ -206,8 +203,24 @@ main {
     }
 }
 
-@media (min-device-width: 600px){
-    .list-group-item {
-        width: 70% !important;
-    }
+/* General compatibility adjustments */
+body {
+    -webkit-font-smoothing: antialiased; /* Better font rendering on low-res screens */
+    -moz-osx-font-smoothing: grayscale; /* Better font rendering on Mac OS X */
+}
+
+/* Ensuring images are responsive */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
 }
