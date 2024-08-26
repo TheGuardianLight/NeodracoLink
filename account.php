@@ -131,24 +131,24 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
         </div>
     </div>
 
-    <!-- Modal pour le recadrage de l'image -->
-    <div class="modal fade" id="cropImagePop" tabindex="-1" aria-labelledby="cropImagePopLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <div class="modal" id="cropImagePop">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cropImagePopLabel">Recadrer l'image de profil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <div id="upload-demo"></div>
+                <div class="modal-body">
+                    <img id="upload-demo" src="">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-primary" id="cropImageBtn">Recadrer et Enregistrer</button>
+                    <button id="cropImageBtn">Recadrer et Télécharger</button>
                 </div>
             </div>
         </div>
     </div>
+    <input type="file" id="profile_pic">
+    <input type="hidden" id="profile_pic_cropped">
+    <button id="uploadBtn">Télécharger</button>
+    <form id="uploadForm" method="post" action="your_upload_endpoint">
+        <input type="hidden" name="cropped_image" id="cropped_image">
+    </form>
 </div>
 
 <!-- Inclure les scripts JS en fin de document pour un chargement plus rapide -->
@@ -157,47 +157,38 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
 
 <script defer>
     document.addEventListener('DOMContentLoaded', function () {
-        var $uploadCrop;
-        var originalWidth, originalHeight;
-
-        function initializeCroppie() {
-            $uploadCrop = $('#upload-demo').croppie({
-                viewport: { width: 200, height: 200, type: 'square' },
-                boundary: { width: 300, height: 300 },
-                enableExif: true,
-                mouseWheelZoom: false, // Désactiver le zoom de la molette de la souris
-                enforceBoundary: true,
-            });
-        }
+        var cropper;
+        var originalHeight;
 
         function readFile(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    var img = new Image();
-                    img.onload = function () {
-                        // Stocker les dimensions originales de l'image
-                        originalWidth = img.width;
-                        originalHeight = img.height;
-
-                        var viewportHeight = 200; // Hauteur de la zone de visualisation
-                        var minZoom = viewportHeight / originalHeight;
-
-                        $uploadCrop.croppie('bind', {
-                            url: e.target.result,
-                        }).then(function () {
-                            console.log('Image bind complete');
-                            $uploadCrop.croppie('setZoom', minZoom); // Définir le zoom initial pour montrer toute la hauteur de l'image
-                        });
-                    };
+                    var img = document.getElementById('upload-demo');
                     img.src = e.target.result;
+                    img.onload = function () {
+                        // Stocker la hauteur originale de l'image
+                        originalHeight = img.naturalHeight;
+
+                        // Initialiser Cropper.js
+                        cropper = new Cropper(img, {
+                            aspectRatio: 1, // Carré
+                            viewMode: 1, // Limite au conteneur
+                            autoCropArea: 1, // Recadrage automatique initial de 100%
+                            responsive: true,
+                            zoomable: true,
+                            movable: true,
+                            minCropBoxHeight: 200,
+                            minCropBoxWidth: 200
+                        });
+
+                        // Ajuster le dézoom maximum selon la hauteur originale
+                        cropper.zoomTo(200 / originalHeight);
+                    };
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
-        // Initialiser Croppie au début
-        initializeCroppie();
 
         // Gestion de l'événement de changement de fichier
         $('#profile_pic').on('change', function () {
@@ -207,17 +198,21 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
 
         // Gestion de l'événement de recadrage et de sauvegarde de l'image
         $('#cropImageBtn').on('click', function () {
-            $uploadCrop.croppie('result', {
-                type: 'canvas',
-                size: { width: originalHeight, height: originalHeight }, // Taille en hauteur de l'image originale
-                quality: 1 // Définir la qualité de l'image retournée à la qualité maximale
-            }).then(function (resp) {
-                $('#profile_pic_cropped').val(resp);
+            var canvas = cropper.getCroppedCanvas({
+                height: originalHeight // Taille en hauteur de l'image originale
+            });
+            canvas.toBlob(function (blob) {
+                var formData = new FormData();
+                formData.append('cropped_image', blob);
+
+                // Mettre à jour le champ caché pour le formulaire
+                $('#cropped_image').val(blob);
+
                 $('#cropImagePop').modal('hide');
                 $('#uploadForm').submit();
             });
         });
-        // TEST
+
         // Gestion de l'événement de clic sur le bouton de téléchargement
         $('#uploadBtn').on('click', function () {
             $('#profile_pic').click();
