@@ -169,7 +169,7 @@ main {
     display: block;
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
     .content {
         padding: 0 15px;
     }
