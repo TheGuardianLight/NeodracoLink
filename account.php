@@ -28,7 +28,7 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="styles.css"/>
-    <link rel="stylesheet" href="css/croppie.css"/>
+    <link rel="stylesheet" href="css/cropper.css"/>
     <?php require 'php/favicon.php' ?>
 </head>
 <body>
@@ -102,16 +102,12 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
         <div class="card-body">
             <form id="uploadForm" method="post" enctype="multipart/form-data" class="row g-3">
                 <input type="hidden" name="update_profile_pic" value="1">
-                <input type="hidden" id="profile_pic_cropped" name="profile_pic_cropped">
+                <input type="hidden" id="profile_pic_cropped" name="cropped_image"> <!-- Mise à jour du champ -->
                 <div class="col-md-6">
                     <div class="card mb-3">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <?php if (!empty($userInfo['profile_pic_name'])): ?>
-                                    <img src="/images/profile_pic/<?= htmlspecialchars($userInfo['profile_pic_name']) ?>" class="img-fluid rounded-start" alt="Photo de profil">
-                                <?php else: ?>
-                                    <img src="/images/default.png" class="img-fluid rounded-start" alt="Photo de profil par défaut">
-                                <?php endif; ?>
+                                <img src="<?= !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/" . htmlspecialchars($userInfo['profile_pic_name']) : '/images/default.png' ?>" class="img-fluid rounded-start" alt="Photo de profil">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -124,41 +120,35 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
                         </div>
                     </div>
                 </div>
-                <div class="col-12 text-center">
-                    <button type="button" class="btn btn-primary" id="uploadBtn"><i class="bi bi-save me-2"></i>Choisir et Recadrer l'image de profil</button>
-                </div>
             </form>
         </div>
     </div>
 
-    <div class="modal" id="cropImagePop">
-        <div class="modal-dialog">
+    <!-- Modal pour le recadrage de l'image -->
+    <div class="modal fade" id="cropImagePop" tabindex="-1" aria-labelledby="cropImagePopLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <img id="upload-demo" src="">
+                    <img id="upload-demo" class="img-fluid" src="" alt="Image à recadrer">
                 </div>
                 <div class="modal-footer">
-                    <button id="cropImageBtn">Recadrer et Télécharger</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" id="cropImageBtn">Recadrer et Télécharger</button>
                 </div>
             </div>
         </div>
     </div>
-    <input type="file" id="profile_pic">
-    <input type="hidden" id="profile_pic_cropped">
-    <button id="uploadBtn">Télécharger</button>
-    <form id="uploadForm" method="post" action="your_upload_endpoint">
-        <input type="hidden" name="cropped_image" id="cropped_image">
-    </form>
 </div>
 
 <!-- Inclure les scripts JS en fin de document pour un chargement plus rapide -->
 <script src="js/jquery-3.7.1.js"></script>
-<script src="js/croppie.js" defer></script>
+<script src="js/cropper.js" defer></script>
 
 <script defer>
     document.addEventListener('DOMContentLoaded', function () {
         var cropper;
-        var originalHeight;
+        const fixedWidth = 400;  // Largeur fixe pour l'affichage de l'image
+        const fixedHeight = 400; // Hauteur fixe pour l'affichage de l'image
 
         function readFile(input) {
             if (input.files && input.files[0]) {
@@ -167,23 +157,30 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
                     var img = document.getElementById('upload-demo');
                     img.src = e.target.result;
                     img.onload = function () {
-                        // Stocker la hauteur originale de l'image
-                        originalHeight = img.naturalHeight;
+                        // Redimensionner l'image pour qu'elle tienne dans les dimensions fixes, tout en conservant les proportions
+                        const naturalWidth = img.naturalWidth;
+                        const naturalHeight = img.naturalHeight;
+
+                        if (naturalWidth / naturalHeight > fixedWidth / fixedHeight) {
+                            img.width = fixedWidth;
+                            img.height = (naturalHeight / naturalWidth) * fixedWidth;
+                        } else {
+                            img.width = (naturalWidth / naturalHeight) * fixedHeight;
+                            img.height = fixedHeight;
+                        }
 
                         // Initialiser Cropper.js
                         cropper = new Cropper(img, {
                             aspectRatio: 1, // Carré
-                            viewMode: 1, // Limite au conteneur
+                            viewMode: 2, // Restreindre le recadrage à l'intérieur du conteneur
                             autoCropArea: 1, // Recadrage automatique initial de 100%
                             responsive: true,
-                            zoomable: true,
+                            zoomable: true, // Autoriser le zoom
+                            background: false, // Enlever l'arrière-plan gris
                             movable: true,
-                            minCropBoxHeight: 200,
-                            minCropBoxWidth: 200
+                            rotatable: true, // Permettre la rotation
+                            scalable: true, // Permettre le dimensionnement
                         });
-
-                        // Ajuster le dézoom maximum selon la hauteur originale
-                        cropper.zoomTo(200 / originalHeight);
                     };
                 };
                 reader.readAsDataURL(input.files[0]);
@@ -191,31 +188,38 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
         }
 
         // Gestion de l'événement de changement de fichier
-        $('#profile_pic').on('change', function () {
-            $('#cropImagePop').modal('show');
+        document.getElementById('profile_pic').addEventListener('change', function () {
+            var modal = new bootstrap.Modal(document.getElementById('cropImagePop'), {
+                keyboard: false
+            });
+            modal.show();
             readFile(this);
         });
 
         // Gestion de l'événement de recadrage et de sauvegarde de l'image
-        $('#cropImageBtn').on('click', function () {
+        document.getElementById('cropImageBtn').addEventListener('click', function () {
             var canvas = cropper.getCroppedCanvas({
-                height: originalHeight // Taille en hauteur de l'image originale
+                width: fixedWidth,
+                height: fixedHeight,
             });
             canvas.toBlob(function (blob) {
-                var formData = new FormData();
-                formData.append('cropped_image', blob);
+                // Convertir le blob en base64 pour l'envoyer via le formulaire
+                var reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function () {
+                    var base64Data = reader.result;
+                    document.getElementById('profile_pic_cropped').value = base64Data;
 
-                // Mettre à jour le champ caché pour le formulaire
-                $('#cropped_image').val(blob);
-
-                $('#cropImagePop').modal('hide');
-                $('#uploadForm').submit();
+                    // Fermer le modal et soumettre le formulaire
+                    bootstrap.Modal.getInstance(document.getElementById('cropImagePop')).hide();
+                    document.getElementById('uploadForm').submit();
+                };
             });
         });
 
         // Gestion de l'événement de clic sur le bouton de téléchargement
-        $('#uploadBtn').on('click', function () {
-            $('#profile_pic').click();
+        document.getElementById('uploadBtn').addEventListener('click', function () {
+            document.getElementById('profile_pic').click();
         });
     });
 </script>

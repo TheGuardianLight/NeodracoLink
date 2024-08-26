@@ -6,7 +6,6 @@
 global $dbConfig;
 require __DIR__ . '/../vendor/autoload.php';
 
-
 function getUserInfo($dbConfig, $username) {
     $connection = getDbConnection($dbConfig);
 
@@ -68,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         );
         updateUserInfo($dbConfig, $_SESSION['username'], $updatedInfo['email'], $updatedInfo['first_name'], $updatedInfo['last_name']);
     }
-    if (isset($_POST['update_profile_pic']) && !empty($_POST['profile_pic_cropped'])) {
-        updateUserProfilePic($dbConfig, $_SESSION['username'], $_POST['profile_pic_cropped']);
+    if (isset($_POST['update_profile_pic']) && !empty($_POST['cropped_image'])) {
+        updateUserProfilePic($dbConfig, $_SESSION['username'], $_POST['cropped_image']);
     }
     if (isset($_POST['update_password'])) {
         $password = $_POST['password'] ?? '';
