@@ -155,7 +155,7 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
 <script src="js/jquery-3.7.1.js"></script>
 <script src="js/croppie.js" defer></script>
 
-<script>
+<script defer>
     document.addEventListener('DOMContentLoaded', function () {
         var $uploadCrop;
         var originalWidth, originalHeight;
@@ -180,13 +180,14 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
                         originalWidth = img.width;
                         originalHeight = img.height;
 
-                        var minZoom = Math.min(200 / img.width, 200 / img.height);
+                        var viewportHeight = 200; // Hauteur de la zone de visualisation
+                        var minZoom = viewportHeight / originalHeight;
 
                         $uploadCrop.croppie('bind', {
                             url: e.target.result,
-                            zoom: minZoom, // Commencer le zoom à minZoom
                         }).then(function () {
                             console.log('Image bind complete');
+                            $uploadCrop.croppie('setZoom', minZoom); // Définir le zoom initial pour montrer toute la hauteur de l'image
                         });
                     };
                     img.src = e.target.result;
