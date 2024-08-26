@@ -169,7 +169,11 @@ main {
     display: block;
 }
 
-@media screen and (max-width: 600px) {
+.list-group-item {
+    width: 90% !important;
+}
+
+@media (max-width: 600px) {
     .content {
         padding: 0 15px;
     }
@@ -199,5 +203,11 @@ main {
 
     .mobile-show {
         display: none;
+    }
+}
+
+@media (min-device-width: 601px){
+    .list-group-item {
+        width: 70% !important;
     }
 }
