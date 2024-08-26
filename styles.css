@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
  */
 
@@ -12,31 +12,25 @@
     --color-7: #5494d5;
 }
 
-/* General styles */
 body {
     font-family: Arial, sans-serif;
     background-color: var(--color-2);
-    height: 100%;
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
+html, body{
     height: 100%;
     margin: 0;
 }
 
-/* Header and main content */
-main {
-    padding: 2rem;
-}
 
 header {
     margin-bottom: 20px;
 }
 
-/* Navbar and footer */
+main {
+    padding: 2rem;
+}
+
 .navbar, .bd-footer {
     background-color: var(--color-3);
     color: var(--color-2);
@@ -44,6 +38,7 @@ header {
 
 .navbar .navbar-brand,
 .navbar .nav-link:hover,
+.navbar,
 .dropdown:hover>.dropdown-menu {
     color: var(--color-2);
 }
@@ -52,14 +47,13 @@ header {
     color: #0a53be;
 }
 
-/* Buttons */
 .btn-primary {
     background-color: var(--color-2);
     border-color: var(--color-2);
     color: var(--color-4);
 }
 
-.btn-primary:hover {
+.btn-primary:hover{
     background-color: var(--color-6);
     border-color: var(--color-6);
     color: var(--color-2);
@@ -71,13 +65,13 @@ header {
     color: var(--color-2);
 }
 
-.btn-tertiary:hover {
+.btn-tertiary:hover{
     background-color: var(--color-5);
     border-color: var(--color-5);
     color: var(--color-4);
 }
 
-.btn-floating {
+.btn-floating{
     background-color: var(--color-6);
     border-color: var(--color-6);
     color: var(--color-2);
@@ -89,24 +83,14 @@ header {
     color: var(--color-4);
 }
 
-/* List group */
-.list-group {
+.list-group{
     padding-top: 10px;
 }
 
 .list-group-item {
-    width: 70%;
-    font-size: 1.2em;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-}
-
-.list-group-item img {
-    margin-bottom: 10px;
+    width: 70%; /* Change this to your preferred width */
+    font-size: 1.2em; /* Increase font size */
+    margin: auto; /* center list item */
 }
 
 .card {
@@ -118,7 +102,6 @@ header {
     align-items: stretch;
 }
 
-/* Cursor styles */
 .cursor {
     cursor: pointer;
 }
@@ -135,7 +118,6 @@ header {
     display: block;
 }
 
-/* Background and content */
 .background-blur {
     position: fixed;
     top: 0;
@@ -145,40 +127,31 @@ header {
     background-size: cover;
     background-position: center;
     filter: blur(60px);
-    z-index: -1;
+    z-index: -1; /* Pour que le fond soit derrière tout le reste */
 }
 
 .content {
-    position: relative;
+    position: relative; /* Pour garder le contenu au-dessus du fond flouté */
     z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
 }
 
-/* Site item */
-.site-item {
+.site-item{
     text-decoration: none;
     color: black;
     transition: color 0.2s ease-in-out;
 }
 
-.site-item:hover {
+.site-item:hover{
     text-decoration: none;
     color: var(--color-7);
 }
 
-/* Modal styles */
 .modal-header {
     background-color: #ffc107;
 }
-
 .modal-body {
     font-size: 1.2em;
 }
-
 .modal-footer .btn {
     min-width: 100px;
 }
@@ -188,12 +161,14 @@ header {
     cursor: not-allowed;
     color: gray;
 }
-
 .disabled {
     opacity: 0.6;
 }
 
-/* Mobile styles */
+.mobile-show {
+    display: block;
+}
+
 @media (max-width: 600px) {
     .content {
         padding: 0 15px;
@@ -209,11 +184,10 @@ header {
     }
 
     .list-group-item {
-        flex-direction: column !important;
-        text-align: center !important;
-        width: 100% !important;
-        margin: 0 auto;
-        display: flex !important;
+        flex-direction: column;
+        text-align: center; /* Changed to center for better text alignment across devices */
+        width: 100% !important; /* Adjusted to 100% for consistency */
+        margin: 0 auto; /* Centrally aligns the list-group-item */
     }
 
     .list-group-item img {
@@ -225,14 +199,21 @@ header {
     }
 
     .mobile-show {
-        display: block !important;
+        display: none;
     }
+}
+
+/* General compatibility adjustments */
+body {
+    -webkit-font-smoothing: antialiased; /* Better font rendering on low-res screens */
+    -moz-osx-font-smoothing: grayscale; /* Better font rendering on Mac OS X */
 }
 
 /* Ensuring images are responsive */
 img {
     max-width: 100%;
     height: auto;
+    display: block;
 }
 
 /* Utility classes */
