@@ -3,7 +3,7 @@
  * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
  */
 
-global $dbConfig;
+global $dbConfig, $formFields;
 session_start();
 
 if (!isset($_SESSION['username'])) {
@@ -16,34 +16,6 @@ require 'php/api_config.php';
 require_once 'php/user_management.php';
 
 $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['update_info'])) {
-        $updatedInfo = array_intersect_key(
-            $_POST, array_flip(['email', 'first_name', 'last_name'])
-        );
-        updateUserInfo($dbConfig, $_SESSION['username'], $updatedInfo['email'], $updatedInfo['first_name'], $updatedInfo['last_name']);
-    }
-    if (isset($_POST['update_profile_pic']) && isset($_FILES['profile_pic'])) {
-        updateUserProfilePic($dbConfig, $_SESSION['username'], $_FILES['profile_pic']);
-    }
-    if (isset($_POST['update_password'])) {
-        $password = $_POST['password'] ?? '';
-        $confirm_password = $_POST['confirm_password'] ?? '';
-        if ($password === $confirm_password) {
-            updateUserPassword($dbConfig, $_SESSION['username'], $password);
-        } else {
-            echo "Les mots de passe ne correspondent pas.";
-        }
-    }
-    $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
-}
-
-$formFields = [
-    'email' => ['Email', 'email'],
-    'first_name' => ['Prénom', 'text'],
-    'last_name' => ['Nom de famille', 'text']
-];
 ?>
 
 <!DOCTYPE html>
@@ -52,10 +24,11 @@ $formFields = [
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Mon compte</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link href="styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="css/croppie.css"/>
     <?php require 'php/favicon.php' ?>
 </head>
 <body>
@@ -127,8 +100,9 @@ $formFields = [
             <h3><i class="bi bi-image me-2"></i>Changer l'image de profil</h3>
         </div>
         <div class="card-body">
-            <form method="post" enctype="multipart/form-data" class="row g-3">
+            <form id="uploadForm" method="post" enctype="multipart/form-data" class="row g-3">
                 <input type="hidden" name="update_profile_pic" value="1">
+                <input type="hidden" id="profile_pic_cropped" name="profile_pic_cropped">
                 <div class="col-md-6">
                     <div class="card mb-3">
                         <div class="row g-0">
@@ -151,12 +125,104 @@ $formFields = [
                     </div>
                 </div>
                 <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-save me-2"></i>Mettre à jour l'image de profil</button>
+                    <button type="button" class="btn btn-primary" id="uploadBtn"><i class="bi bi-save me-2"></i>Choisir et Recadrer l'image de profil</button>
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- Modal pour le recadrage de l'image -->
+    <div class="modal fade" id="cropImagePop" tabindex="-1" aria-labelledby="cropImagePopLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cropImagePopLabel">Recadrer l'image de profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="upload-demo"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" id="cropImageBtn">Recadrer et Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Inclure les scripts JS en fin de document pour un chargement plus rapide -->
+<script src="js/jquery-3.7.1.js"></script>
+<script src="js/croppie.js" defer></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var $uploadCrop;
+        var originalWidth, originalHeight;
+
+        function initializeCroppie() {
+            $uploadCrop = $('#upload-demo').croppie({
+                viewport: { width: 200, height: 200, type: 'square' },
+                boundary: { width: 300, height: 300 },
+                enableExif: true,
+                mouseWheelZoom: false, // Désactiver le zoom de la molette de la souris
+                enforceBoundary: true,
+            });
+        }
+
+        function readFile(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var img = new Image();
+                    img.onload = function () {
+                        // Stocker les dimensions originales de l'image
+                        originalWidth = img.width;
+                        originalHeight = img.height;
+
+                        var minZoom = Math.min(200 / img.width, 200 / img.height);
+
+                        $uploadCrop.croppie('bind', {
+                            url: e.target.result,
+                            zoom: minZoom, // Commencer le zoom à minZoom
+                        }).then(function () {
+                            console.log('Image bind complete');
+                        });
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Initialiser Croppie au début
+        initializeCroppie();
+
+        // Gestion de l'événement de changement de fichier
+        $('#profile_pic').on('change', function () {
+            $('#cropImagePop').modal('show');
+            readFile(this);
+        });
+
+        // Gestion de l'événement de recadrage et de sauvegarde de l'image
+        $('#cropImageBtn').on('click', function () {
+            $uploadCrop.croppie('result', {
+                type: 'canvas',
+                size: { width: originalHeight, height: originalHeight }, // Taille en hauteur de l'image originale
+                quality: 1 // Définir la qualité de l'image retournée à la qualité maximale
+            }).then(function (resp) {
+                $('#profile_pic_cropped').val(resp);
+                $('#cropImagePop').modal('hide');
+                $('#uploadForm').submit();
+            });
+        });
+
+        // Gestion de l'événement de clic sur le bouton de téléchargement
+        $('#uploadBtn').on('click', function () {
+            $('#profile_pic').click();
+        });
+    });
+</script>
 
 <?php require 'php/footer.php'?>
 <?php require 'js/bootstrap_script.html' ?>
