@@ -217,7 +217,7 @@ $userInfo = getUserInfo($dbConfig, $_SESSION['username']);
                 $('#uploadForm').submit();
             });
         });
-
+        // TEST
         // Gestion de l'événement de clic sur le bouton de téléchargement
         $('#uploadBtn').on('click', function () {
             $('#profile_pic').click();
