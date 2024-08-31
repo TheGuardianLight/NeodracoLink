@@ -36,3 +36,5 @@ J'ai prévu d'y ajouter d'autres fonctions :
 ## Des problèmes ? Des idées d'améliorations ?
 
 Si vous avez d'autres idées, vous pouvez vous rendre [ici](https://github.com/TheGuardianLight/NeodracoLink/issues) pour faire part de vos problèmes liés au logiciels ou d'éventuels idée d'amélioration.
+
+De plus, si vous souhaitez suivre l'évolution du développement de mon site, n'hésitez pas à [visiter le projet ici](https://kanban.neodraco.fr/project/neodracos-link/kanban) !
