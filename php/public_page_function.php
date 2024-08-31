@@ -9,7 +9,20 @@ global $dbConfig;
 $username = $_GET['username'] ?? '';
 
 if (empty($username)) {
-    die("Username is required");
+    die('
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <title>Erreur</title>
+</head>
+<body>
+    <div class="alert alert-danger" role="alertdialog">Le nom d\'utilisateur est requis&nbsp;!</div>
+</body>
+</html>
+');
 }
 
 $conn = getDbConnection($dbConfig);
