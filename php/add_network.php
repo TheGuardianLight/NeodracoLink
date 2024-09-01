@@ -1,11 +1,17 @@
 <?php
 
+/**
+ * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
+ */
+
 global $dbConfig;
 require __DIR__ . '/../vendor/autoload.php';
 require 'api_config.php';
+
+// Ajoutez session_start au début des scripts où vous utilisez $_SESSION
+session_start();
 require 'user_management.php';
 
-session_start();   // start the session
 if (!isset($_SESSION["username"])) {
     header("Location: login.php");
     exit();
@@ -20,10 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $networkIcon = $_POST['network_icon'];
     $networkNsfw = isset($_POST['network_nsfw']) ? $_POST['network_nsfw'] : 0;
     $networkActive = isset($_POST['network_active']) ? $_POST['network_active'] : 0;
+    $categoryId = $_POST['category_id'];
 
     if (empty($networkName)) {
-        echo "Le nom du réseau est requis.";
-        die();
+        die('<div class="alert alert-warning" role="alert">Le nom du réseau est requis.</div>');
     }
 
     // Add network
@@ -39,15 +45,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $lastInsertedId = $conn->lastInsertId(); // Get last inserted network id
 
         // Link network to user
-        $sql = $conn->prepare("INSERT INTO users_reseaux (users_id, reseau_id) VALUES (:userName, :networkId)");
+        $sql = $conn->prepare("INSERT INTO users_reseaux (users_id, reseau_id, reseau_categorie) VALUES (:userName, :networkId, :categoryId)");
         $sql->bindParam(':userName', $userName);
         $sql->bindParam(':networkId', $lastInsertedId);
+        $sql->bindParam(':categoryId', $categoryId);
 
         $sql->execute();
 
     } catch (PDOException $e) {
-        echo "Une erreur s'est produite lors de l'ajout : " . $e->getMessage();
-        die();
+        die('<div class="alert alert-danger" role="alert">Une erreur s\'est produite lors de l\'ajout : ' . $e->getMessage() . '</div>');
     }
 
     echo "Ok"; // Successful operation

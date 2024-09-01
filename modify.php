@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (c) 2024 - Veivneorul. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (BY-NC-ND 4.0).
  */
 
@@ -167,6 +167,13 @@ if (!isset($_SESSION['username'])) {
                         <option value="bluesky.svg">Bluesky</option>
                         <option value="furaffinity.png">Fur Affinity</option>
                         <option value="lien.png">Lien externe</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="category_id" class="form-label">Catégorie</label>
+                    <select id="category_id" class="form-select" required>
+                        <option value="">Choisissez une catégorie...</option>
+                        <!-- Les options seront ajoutées dynamiquement -->
                     </select>
                 </div>
                 <div class="mb-3 form-check">
