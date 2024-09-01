@@ -19,39 +19,51 @@ try {
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $sql = "
-        CREATE TABLE users (
-            username VARCHAR(100) PRIMARY KEY,
-            email VARCHAR(100) NOT NULL UNIQUE,
-            password VARCHAR(255) NOT NULL,
-            profile_pic_name VARCHAR(255) NULL
-        ) ENGINE=InnoDB;
-
-        CREATE TABLE reseaux (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nom VARCHAR(100) NOT NULL,
-            url VARCHAR(255) NOT NULL,
-            icone VARCHAR(255),
-            nsfw tinyint(1) NULL DEFAULT 0,
-            active tinyint(1) NULL DEFAULT 1
-        ) ENGINE=InnoDB;
-
-        CREATE TABLE users_reseaux (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            users_id VARCHAR(100),
-            reseau_id INT,
-            reseau_order INT,
-            FOREIGN KEY (users_id) REFERENCES users(username),
-            FOREIGN KEY (reseau_id) REFERENCES reseaux(id)
-        ) ENGINE=InnoDB;
-
-        CREATE TABLE `user_info` (
-            `username` VARCHAR(50),
-            `first_name` VARCHAR(100),
-            `last_name` VARCHAR(100),
-            `email` VARCHAR(255),
-            PRIMARY KEY (`username`),
-            FOREIGN KEY (`username`) REFERENCES `users`(`username`) ON DELETE CASCADE
-        ) ENGINE=InnoDB;
+        CREATE TABLE `categorie`  (
+            `cat_id` int NOT NULL AUTO_INCREMENT,
+            `cat_name` varchar(255) NULL,
+            PRIMARY KEY (`cat_id`)
+        ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+        
+        CREATE TABLE `reseaux`  (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+            `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+            `icone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+            `nsfw` tinyint(1) NULL DEFAULT NULL,
+            `active` tinyint(1) NULL DEFAULT NULL,
+            PRIMARY KEY (`id`) USING BTREE
+        ) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+        
+        CREATE TABLE `user_info`  (
+            `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+            `first_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+            `last_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+            `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+            PRIMARY KEY (`username`) USING BTREE
+        ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+        
+        CREATE TABLE `users`  (
+            `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+            `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+            `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+            `profile_pic_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+            PRIMARY KEY (`username`) USING BTREE
+        ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+        
+        CREATE TABLE `users_reseaux`  (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `users_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+            `reseau_id` int(11) NULL DEFAULT NULL,
+            `reseau_order` int(11) NULL DEFAULT NULL,
+            `reseau_categorie` int NOT NULL,
+            PRIMARY KEY (`id`, `reseau_categorie`) USING BTREE
+        ) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+        
+        ALTER TABLE `user_info` ADD CONSTRAINT `user_info_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE RESTRICT;
+        ALTER TABLE `users_reseaux` ADD CONSTRAINT `users_reseaux_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE RESTRICT;
+        ALTER TABLE `users_reseaux` ADD CONSTRAINT `users_reseaux_ibfk_2` FOREIGN KEY (`reseau_id`) REFERENCES `reseaux` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+        ALTER TABLE `users_reseaux` ADD CONSTRAINT `users_reseaux_ibfk_3` FOREIGN KEY (`reseau_categorie`) REFERENCES `categorie` (`cat_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
     ";
 
     $connection->exec($sql);
