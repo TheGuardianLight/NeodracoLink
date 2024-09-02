@@ -49,6 +49,9 @@
                 <li class="nav-item align-self-center">
                     <a class="nav-link" href="about.php">A propos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="doc/" disabled="">Documentation</a>
+                </li>
             </ul>
         </div>
     </div>
