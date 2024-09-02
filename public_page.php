@@ -104,23 +104,8 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
     </main>
 </div>
 
-<style>
-    .category-title {
-        display: inline-block;
-        padding: 10px 20px;
-        background: var(--category-background, linear-gradient(135deg, #6a11cb 0%, #2575fc 100%));
-        color: var(--category-text-color, white);
-        font-size: 1.5rem;
-        border-radius: 12px;
-        border: none;
-    }
-
-    .list-group-item {
-        border: 1px solid #ddd;
-    }
-</style>
-
 <script src="js/color-thief.umd.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const img = document.getElementById('profileImage');
