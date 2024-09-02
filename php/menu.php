@@ -23,7 +23,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="modify.php">Sites & Réseaux</a></li>
-                        <li><a class="dropdown-item" href="categories.php" disabled>Catégories</a></li>
+                        <li><a class="dropdown-item" href="categories.php">Catégories</a></li>
                         <li><a class="dropdown-item" href="data.php">Export/Import data</a></li>
                     </ul>
                 </li>
@@ -51,7 +51,7 @@
                     <a class="nav-link" href="about.php">A propos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="doc/" disabled="">Documentation</a>
+                    <a class="nav-link disabled" href="doc/">Documentation</a>
                 </li>
             </ul>
         </div>
