@@ -17,6 +17,8 @@ require 'php/api_config.php';
 require_once 'php/user_management.php';
 require 'php/detail-link_function.php';
 
+$categories = getCategories();
+
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +71,20 @@ require 'php/detail-link_function.php';
         </div>
 
         <div class="form-group mb-3">
+            <label for="network_category" class="form-label">Catégorie</label>
+            <select class="form-select" id="network_category" name="category">
+                <option value="">Choisissez une catégorie...</option>
+                <?php
+                foreach ($categories as $category) {
+                    // Vérifie si le lien a une catégorie, sinon utilise une valeur par défaut.
+                    $selected = (isset($linkData['reseau_categorie']) && $linkData['reseau_categorie'] == $category['cat_id']) ? 'selected' : '';
+                    echo "<option value=\"{$category['cat_id']}\" {$selected}>{$category['cat_name']}</option>";
+                }
+                ?>
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
             <label for="network_order" class="form-label">Ordre<span class="text-danger">*</span></label>
             <input type="number" class="form-control" id="network_order" name="order" value="<?= htmlspecialchars($linkData['reseau_order']) ?>" required>
         </div>
@@ -80,7 +96,7 @@ require 'php/detail-link_function.php';
 
         <div class="form-check form-switch mb-3">
             <input class="form-check-input" type="checkbox" id="network_active" name="active" <?= $linkData['active'] ? 'checked' : '' ?>>
-            <label class="form-check-label" for="network_active">Active</label>
+            <label class="form-check-label" for "network_active">Active</label>
         </div>
 
         <div class="text-center">
