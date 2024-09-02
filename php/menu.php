@@ -23,6 +23,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="modify.php">Sites & Réseaux</a></li>
+                        <li><a class="dropdown-item" href="categories.php" disabled>Catégories</a></li>
                         <li><a class="dropdown-item" href="data.php">Export/Import data</a></li>
                     </ul>
                 </li>
