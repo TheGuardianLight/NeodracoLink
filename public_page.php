@@ -49,7 +49,7 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
                 </div>
                 <div class="list-group mb-5">
                     <?php foreach ($sitesByCategory['uncategorized'] as $site): ?>
-                        <div class="list-group-item align-items-start d-flex rounded-3 flex-column flex-md-row text-center text-md-start shadow-sm p-3 bg-body rounded mb-3">
+                        <div class="list-group-item align-items-center d-flex justify-content-between rounded-3 shadow-sm p-3 bg-body mb-3">
                             <a href="<?= htmlspecialchars($site['url']) ?>"
                                class="d-flex align-items-center site-item flex-grow-1 text-decoration-none"
                                target="_blank"
@@ -58,7 +58,7 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
                                 <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3 rounded-3 shadow" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
                                 <h5 class="fs-5 flex-grow-1 text-dark"><?= htmlspecialchars($site['nom']) ?></h5>
                             </a>
-                            <div class="dropdown ms-auto">
+                            <div class="dropdown">
                                 <button class="btn btn-sm" type="button" id="dropdownMenuButton-<?= htmlspecialchars($site['url']) ?>" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-ellipsis-v fa-lg"></i>
                                 </button>
@@ -78,7 +78,7 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
                 </div>
                 <div class="list-group mb-5">
                     <?php foreach ($sites as $site): ?>
-                        <div class="list-group-item align-items-start d-flex rounded-3 flex-column flex-md-row text-center text-md-start shadow-sm p-3 bg-body rounded mb-3">
+                        <div class="list-group-item align-items-center d-flex justify-content-between rounded-3 shadow-sm p-3 bg-body mb-3">
                             <a href="<?= htmlspecialchars($site['url']) ?>"
                                class="d-flex align-items-center site-item flex-grow-1 text-decoration-none"
                                target="_blank"
@@ -87,7 +87,7 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
                                 <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3 rounded-3 shadow" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
                                 <h5 class="fs-5 flex-grow-1 text-dark"><?= htmlspecialchars($site['nom']) ?></h5>
                             </a>
-                            <div class="dropdown ms-auto">
+                            <div class="dropdown">
                                 <button class="btn btn-sm" type="button" id="dropdownMenuButton-<?= htmlspecialchars($site['url']) ?>" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-ellipsis-v fa-lg"></i>
                                 </button>
@@ -148,6 +148,23 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
 
     .list-group-item {
         border: 1px solid #ddd;
+    }
+
+    .list-group-item a,
+    .list-group-item img,
+    .list-group-item h5,
+    .list-group-item .dropdown {
+        margin: 0; /* Remove margins */
+        padding: 0; /* Remove padding */
+    }
+
+    .list-group-item.d-flex {
+        flex-wrap: nowrap; /* Ensure no wrapping */
+    }
+
+    .site-item {
+        margin: 0; /* Further ensure margins are reduced */
+        padding: 0;
     }
 </style>
 
