@@ -49,16 +49,16 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
                 </div>
                 <div class="list-group mb-5">
                     <?php foreach ($sitesByCategory['uncategorized'] as $site): ?>
-                        <div class="list-group-item align-items-center d-flex justify-content-between rounded-3 shadow-sm p-3 bg-body mb-3">
+                        <div class="list-group-item align-items-center d-flex flex-row rounded-3 shadow-sm p-3 bg-body mb-3">
                             <a href="<?= htmlspecialchars($site['url']) ?>"
                                class="d-flex align-items-center site-item flex-grow-1 text-decoration-none"
                                target="_blank"
                                rel="external"
                                onclick="warnBeforeNsfw(event, '<?= htmlspecialchars($site['url']) ?>', <?= (int)$site['nsfw'] ?>, <?= (int)$site['active'] ?>)">
-                                <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3 rounded-3 shadow" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
-                                <h5 class="fs-5 flex-grow-1 text-dark"><?= htmlspecialchars($site['nom']) ?></h5>
+                                <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3 rounded-3 shadow flex-shrink-0" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
+                                <h5 class="fs-5 flex-grow-1 text-dark m-0"><?= htmlspecialchars($site['nom']) ?></h5>
                             </a>
-                            <div class="dropdown">
+                            <div class="dropdown flex-shrink-0">
                                 <button class="btn btn-sm" type="button" id="dropdownMenuButton-<?= htmlspecialchars($site['url']) ?>" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-ellipsis-v fa-lg"></i>
                                 </button>
@@ -78,16 +78,16 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
                 </div>
                 <div class="list-group mb-5">
                     <?php foreach ($sites as $site): ?>
-                        <div class="list-group-item align-items-center d-flex justify-content-between rounded-3 shadow-sm p-3 bg-body mb-3">
+                        <div class="list-group-item align-items-center d-flex flex-row rounded-3 shadow-sm p-3 bg-body mb-3">
                             <a href="<?= htmlspecialchars($site['url']) ?>"
                                class="d-flex align-items-center site-item flex-grow-1 text-decoration-none"
                                target="_blank"
                                rel="external"
                                onclick="warnBeforeNsfw(event, '<?= htmlspecialchars($site['url']) ?>', <?= (int)$site['nsfw'] ?>, <?= (int)$site['active'] ?>)">
-                                <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3 rounded-3 shadow" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
-                                <h5 class="fs-5 flex-grow-1 text-dark"><?= htmlspecialchars($site['nom']) ?></h5>
+                                <img src="images/icon/<?= htmlspecialchars($site['icone']) ?>" class="img-fluid me-3 rounded-3 shadow flex-shrink-0" alt="Icone de <?= htmlspecialchars($site['nom']) ?>" style="width: 50px; height: 50px;">
+                                <h5 class="fs-5 flex-grow-1 text-dark m-0"><?= htmlspecialchars($site['nom']) ?></h5>
                             </a>
-                            <div class="dropdown">
+                            <div class="dropdown flex-shrink-0">
                                 <button class="btn btn-sm" type="button" id="dropdownMenuButton-<?= htmlspecialchars($site['url']) ?>" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-ellipsis-v fa-lg"></i>
                                 </button>
@@ -156,6 +156,10 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
     .list-group-item .dropdown {
         margin: 0; /* Remove margins */
         padding: 0; /* Remove padding */
+    }
+
+    .flex-shrink-0 {
+        flex-shrink: 0; /* Prevent flex items from shrinking */
     }
 
     .list-group-item.d-flex {
