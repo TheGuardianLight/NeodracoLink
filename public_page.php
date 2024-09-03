@@ -49,7 +49,7 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
                 </div>
                 <div class="list-group mb-5">
                     <?php foreach ($sitesByCategory['uncategorized'] as $site): ?>
-                        <div class="list-group-item align-items-start d-flex rounded-3 flex-column flex-md-row text-center text-md-start shadow-sm p-4 bg-body rounded mb-3">
+                        <div class="list-group-item align-items-start d-flex rounded-3 flex-column flex-md-row text-center text-md-start shadow-sm p-3 bg-body rounded mb-3">
                             <a href="<?= htmlspecialchars($site['url']) ?>"
                                class="d-flex align-items-center site-item flex-grow-1 text-decoration-none"
                                target="_blank"
@@ -78,7 +78,7 @@ $backgroundImage = !empty($userInfo['profile_pic_name']) ? "/images/profile_pic/
                 </div>
                 <div class="list-group mb-5">
                     <?php foreach ($sites as $site): ?>
-                        <div class="list-group-item align-items-start d-flex rounded-3 flex-column flex-md-row text-center text-md-start shadow-sm p-4 bg-body rounded mb-3">
+                        <div class="list-group-item align-items-start d-flex rounded-3 flex-column flex-md-row text-center text-md-start shadow-sm p-3 bg-body rounded mb-3">
                             <a href="<?= htmlspecialchars($site['url']) ?>"
                                class="d-flex align-items-center site-item flex-grow-1 text-decoration-none"
                                target="_blank"
